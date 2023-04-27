@@ -1,23 +1,25 @@
 import './App.css';
 import Home from './pages/Home';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CheckAuth from './components/CheckAuth';
+
 
 
 function App() {
-  const [user, setUser] = useState(null);
-  if (!user) {
-    return <Login />
-  }
+  
   return (
-    <Router>
+    //<Router>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route element={<CheckAuth/>}>
+          <Route path="/" element={<Home />} />
+        </Route>
+        <Route path="*" element={<div>Not found...</div>} />
 
       </Routes>
-    </Router>
+    //</Router>
   );
 }
 
