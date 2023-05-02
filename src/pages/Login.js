@@ -10,13 +10,24 @@ function Login() {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setCredentials(prev => ({...prev, [name]: value}));
+    setCredentials(prev => ({ ...prev, [name]: value }));
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('credentials are', credentials);
-
+    fetch('https://random-url/api/login', {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem("token", data.token);
+      })
+      .catch((err) => console.error(err))
   }
 
   return (
@@ -24,7 +35,7 @@ function Login() {
       <div className="flex items-center justify-center mx-auto min-h-screen">
         <div className="w-full bg-white border border-slate-300 rounded-md shadow-sm md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h3 className="mb-6 text-2xl font-bold leading-tight">
+            <h3 className="mb-6 text-2xl font-bold leading-tight text-center">
               Inventory Management System
             </h3>
             <h1 className="text-base text-gray-600 font-semibold text-center">
