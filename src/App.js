@@ -8,6 +8,7 @@ import Employees from './pages/Employees';
 import Inwards from './pages/Inwards';
 import Outwards from './pages/Outwards';
 import Returns from './pages/Returns';
+import Reports from './pages/Report';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/inwards' element={<Inwards />} />
         <Route path='/outwards' element={<Outwards />} />
         <Route path='/returns' element={<Returns />} />
+        <Route path="/reports" element={<Reports />}></Route>
       </Route>
       <Route path="*" element={<div>Not found...</div>} />
     </Routes >
