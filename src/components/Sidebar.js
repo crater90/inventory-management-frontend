@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 import {
   faWarehouse,
@@ -17,6 +18,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const username = "User01";
   const firstChar = username.charAt(0).toUpperCase();
   const [showEmail, setShowEmail] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setShowEmail(true);
@@ -151,7 +153,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li> */}
             <li>
               <Link
-                to="/godowns"
+                to="/returns"
                 class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
@@ -178,7 +180,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <h1 className="text-base mb-0 pl-2">User01</h1>
             </div>
 
-            <button className="mr-0">
+            <button className="mr-0" onClick={() => navigate("/login")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
