@@ -37,19 +37,19 @@ function Sidebar({sidebarOpen, setSidebarOpen}) {
               </Link>
             </li>
             <li>
-              <Link to='/godowns' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
+              <Link to='/inwards' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
                 <FontAwesomeIcon icon={faBoxes} />
                 <span class="flex-1 ml-3 whitespace-nowrap">Inwards</span>
               </Link>
             </li>
             <li>
-              <Link to='/godowns' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
+              <Link to='/outwards' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
                 <FontAwesomeIcon icon={faTruck} />
                 <span class="flex-1 ml-3 whitespace-nowrap">Outwards</span>
               </Link>
             </li>
             <li>
-              <Link to='/godowns' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
+              <Link to='/returns' class="flex items-center p-2 text-gray-900 rounded-lg no-underline hover:bg-gray-100">
                 <FontAwesomeIcon icon={faExchangeAlt} />
                 <span class="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>

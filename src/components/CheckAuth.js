@@ -3,7 +3,7 @@ import { Outlet, Navigate, useLocation } from "react-router-dom";
 export default function CheckAuth() {
 	//let auth = useAuth();
 	let location = useLocation();
-	const user = 'null';
+	const user = "null";
 
 	//if (!auth.user) {
 	if (!user) {

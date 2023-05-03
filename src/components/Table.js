@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from './Modal'
 import { useState } from 'react';
 
-function Table({ columns, name, data }) {
+function Table({ columns, name, data, row_keys }) {
 	console.log(data);
 	console.log(columns);
 
@@ -66,7 +66,7 @@ function Table({ columns, name, data }) {
 							</tr>
 						</thead>
 						<tbody>
-							{/* {data.map(row => {
+							{data?.map(row => {
 								return (
 									<tr class="border-b hover:bg-gray-100">
 										<td class="w-4 px-4 py-3">
@@ -75,15 +75,13 @@ function Table({ columns, name, data }) {
 												<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
 											</div>
 										</td>
-										<th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-											
+										<th scope='row' class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+											{`row.${columns[0]}`}
 										</th>
 										<td class="px-4 py-2">
 											<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">Gurugram</span>
 										</td>
-										<td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-											95
-										</td>
+										<td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">95</td>
 										<td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">1.47</td>
 										<td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">0.47</td>
 										<td onClick={handleEdit} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
@@ -98,7 +96,7 @@ function Table({ columns, name, data }) {
 										</td>
 									</tr>
 								)
-							})} */}
+							})}
 							<tr class="border-b hover:bg-gray-100">
 								<td class="w-4 px-4 py-3">
 									<div class="flex items-center">

@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
   })
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -16,18 +19,19 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('credentials are', credentials);
-    fetch('https://random-url/api/login', {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(res => res.json())
-      .then(data => {
-        localStorage.setItem("token", data.token);
-      })
-      .catch((err) => console.error(err))
+    // fetch('https://random-url/api/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-type": "application/json"
+    //   },
+    //   body: JSON.stringify(credentials)
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     localStorage.setItem("token", data.token);
+    //   })
+    //   .catch((err) => console.error(err))
+    navigate('/');
   }
 
   return (
