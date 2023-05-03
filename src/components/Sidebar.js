@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 import {
   faWarehouse,
@@ -25,6 +26,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const handleMouseLeave = () => {
     setShowEmail(false);
   };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -178,7 +180,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <h1 className="text-base mb-0 pl-2">User01</h1>
             </div>
 
-            <button className="mr-0">
+            <button className="mr-0" onClick={() => navigate("/login")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
