@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -16,6 +16,15 @@ import {
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const username = "User01";
   const firstChar = username.charAt(0).toUpperCase();
+  const [showEmail, setShowEmail] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    setShowEmail(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowEmail(false);
+  };
 
   return (
     <>
@@ -36,19 +45,27 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             Features
           </Link>
           <Link
-            to="/about"
+            to="/updates"
             className="text-black hover:text-gray-400 font-medium mx-2"
             style={{ textDecoration: "none", textAlign: "left" }}
           >
-            About
+            Updates
           </Link>
-          <Link
-            to="/contact"
-            className="text-black hover:text-gray-400 font-medium mx-2"
-            style={{ textDecoration: "none", textAlign: "left" }}
+          <div
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="relative mx-2"
+            style={{ textAlign: "left" }}
           >
-            Contact
-          </Link>
+            <span className="text-black hover:text-gray-400 font-medium">
+              Contact
+            </span>
+            {showEmail && (
+              <div className="absolute z-10 bg-white rounded-lg shadow-lg p-4">
+                <a href="mailto:help@support.com">help@support.com</a>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -107,7 +124,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/godowns"
+                to="/inwards"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faBoxes} />
@@ -116,11 +133,29 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/godowns"
+                to="/outwards"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faTruck} />
                 <span className="flex-1 ml-3 whitespace-nowrap">Outwards</span>
+              </Link>
+            </li>
+            {/* <li>
+              <Link
+                to="/employees"
+                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faUserAlt} />
+                <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
+              </Link>
+            </li> */}
+            <li>
+              <Link
+                to="/godowns"
+                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faExchangeAlt} />
+                <span class="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>
             </li>
             <li>
@@ -130,25 +165,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 <FontAwesomeIcon icon={faChartBar} />
                 <span class="flex-1 ml-3 whitespace-nowrap ">Report</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/employees"
-                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUserAlt} />
-                <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/godowns"
-                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faExchangeAlt} />
-                <span class="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>
             </li>
           </ul>
