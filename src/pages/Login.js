@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthContext'
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -9,6 +10,7 @@ function Login() {
   })
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -19,19 +21,24 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('credentials are', credentials);
-    // fetch('https://random-url/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   body: JSON.stringify(credentials)
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     localStorage.setItem("token", data.token);
-    //   })
-    //   .catch((err) => console.error(err))
+    setIsLoggedIn(true);
     navigate('/');
+    fetch(`http://10.25.240.191:8085/api/employees/login?userName=${credentials.username}&password=${credentials.password}`, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(res => res.json())
+      .then((data) => {
+        if (data == 1 || 0) {
+          setIsLoggedIn(true);
+          navigate('/');
+        }
+        setIsLoggedIn(false);
+      })
+      .catch((err) => console.error(err))
   }
 
   return (
