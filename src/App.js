@@ -9,9 +9,11 @@ import Inwards from './pages/Inwards';
 import Outwards from './pages/Outwards';
 import Returns from './pages/Returns';
 import Reports from './pages/Report';
+import Updates from "./pages/Updates";
+import Features from "./pages/Features";
 
 function App() {
-
+  
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -20,7 +22,7 @@ function App() {
         <Route path='/:id' element={<Read />} />
         <Route path='/delete/' element={<Delete />} />
       </Route> */}
-      <Route element={<CheckAuth />}>
+      <Route element={<CheckAuth user={user} />}>
         <Route path="/" element={<Home />} />
         <Route path='/godowns' element={<Godowns />} />
         <Route path='/employees' element={<Employees />} />
@@ -28,6 +30,8 @@ function App() {
         <Route path='/outwards' element={<Outwards />} />
         <Route path='/returns' element={<Returns />} />
         <Route path="/reports" element={<Reports />}></Route>
+        <Route path="/updates" element={<Updates />}></Route>
+        <Route path="/features" element={<Features />}></Route>
       </Route>
       <Route path="*" element={<div>Not found...</div>} />
     </Routes >

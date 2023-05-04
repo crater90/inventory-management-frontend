@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 import {
   faWarehouse,
@@ -16,6 +17,16 @@ import {
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const username = "User01";
   const firstChar = username.charAt(0).toUpperCase();
+  const [showEmail, setShowEmail] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleMouseEnter = () => {
+    setShowEmail(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowEmail(false);
+  };
 
   return (
     <>
@@ -36,19 +47,27 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             Features
           </Link>
           <Link
-            to="/about"
+            to="/updates"
             className="text-black hover:text-gray-400 font-medium mx-2"
             style={{ textDecoration: "none", textAlign: "left" }}
           >
-            About
+            Updates
           </Link>
-          <Link
-            to="/contact"
-            className="text-black hover:text-gray-400 font-medium mx-2"
-            style={{ textDecoration: "none", textAlign: "left" }}
+          <div
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="relative mx-2"
+            style={{ textAlign: "left" }}
           >
-            Contact
-          </Link>
+            <span className="text-black hover:text-gray-400 font-medium">
+              Contact
+            </span>
+            {showEmail && (
+              <div className="absolute z-10 bg-white rounded-lg shadow-lg p-4">
+                <a href="mailto:help@support.com">help@support.com</a>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -133,7 +152,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li> */}
             <li>
               <Link
-                to="/godowns"
+                to="/returns"
                 class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
@@ -160,7 +179,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <h1 className="text-base mb-0 pl-2">User01</h1>
             </div>
 
-            <button className="mr-0">
+            <button className="mr-0" onClick={() => navigate("/login")}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
