@@ -3,81 +3,92 @@ import Modal from '../components/Modal'
 import Layout from '../components/Layout'
 
 function Employees() {
-  const columns_name = ["id", "username", "type", "email", "phone", "godown id"];
+  const columns_name = ["id", "username", "type", "email", "phone"];
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
   const modal_data = {
-		name: "Employee",
-		fields: [
-			{
-				label: "id",
-				type: "text",
-				placeholder: "578"
-			},
-			{
-				label: "name",
-				type: "text",
-				placeholder: "John Carter"
-			},
-			{
-				label: "username",
-				type: "text",
-				placeholder: "john109"
-			},
-			{
-				label: "email",
-				type: "text",
-				placeholder: "John007@gmail.com"
-			},
-			{
-				label: "password",
-				type: "password",
+    name: "Employee",
+    fields: [
+      {
+        label: "id",
+        type: "text",
+        placeholder: "578"
+      },
+      {
+        label: "name",
+        type: "text",
+        placeholder: "John Carter"
+      },
+      {
+        label: "userName",
+        type: "text",
+        placeholder: "john109"
+      },
+      {
+        label: "email",
+        type: "text",
+        placeholder: "John007@gmail.com"
+      },
+      {
+        label: "password",
+        type: "password",
         placeholder: "••••••••"
-			},
+      },
       {
-				label: "phone no",
-				type: "text",
+        label: "phoneNo",
+        type: "text",
         placeholder: "9218381309"
-			},
+      },
       {
-				label: "godown id",
-				type: "text",
-        placeholder: "108"
-			},
-		]
-	}
+        label: "type",
+        type: "text",
+        placeholder: "0 for admin, 1 for employee"
+      }
+    ]
+  }
+
+  const getEmployees = async () => {
+    try {
+      const url = 'http://10.25.240.191:8085/api/employees';
+      const res = await fetch(url);
+      const resData = await res.json();
+      setData(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    const getEmployees = async () => {
-      try {
-        const url = 'http://10.25.240.191:8085/api/employees';
-        const res = await fetch(url);
-        const resData = await res.json();
-        setData(resData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
     getEmployees();
-  }, [])
+  }, [modal])
 
-  const handleDelete = (id) => {
-
+  const handleDelete = async (id) => {
+    try {
+      const url = `http://10.25.240.191:8085/api/employees/${id}`;
+      const res = await fetch(url, {
+        method: 'DELETE'
+      })
+      console.log(res);
+      getEmployees();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter(item => item.godown_Id === id);
-		setModalData(edit_obj);
-		setModal(!modal);
+    const edit_obj = data.filter(item => item.id === id);
+    setModalData(edit_obj[0]);
+    console.log(modalData);
+    setModal(!modal);
   }
 
   return (
     <Layout>
       <main className="bg-gray-50 py-3 sm:py-5">
         <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
-          <Modal modal={modal} setModal={setModal} modal_data={modal_data} />
+          <Modal modal={modal} setModal={setModal} modal_data={modal_data} modalData={modalData} setModalData={setModalData} />
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div class="flex items-center flex-1 space-x-4">
@@ -143,7 +154,6 @@ function Employees() {
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.email}</td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.phoneNo}</td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.godowns?.godown_Id}</td>
                         <td onClick={() => openEditModal(row.id)} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 text-gray-700">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />

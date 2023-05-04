@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 
 function Godowns() {
-	const columns = ["id", "location", "capacity", "manager", "start date"]
+	const columns = ["id", "name", "location", "capacity", "manager", "start date"]
 	const [data, setData] = useState([]);
 	const [modal, setModal] = useState(false);
 	const [modalData, setModalData] = useState(null);
@@ -11,12 +11,12 @@ function Godowns() {
 	const modal_data = {
 		name: "Godown",
 		fields: [
-			{
-				label: "godown_Id",
-				type: "text",
-				placeholder: "578",
-				req: true,
-			},
+			// {
+			// 	label: "godown_Id",
+			// 	type: "text",
+			// 	placeholder: "578",
+			// 	req: true,
+			// },
 			{
 				label: "location",
 				type: "text",
@@ -43,19 +43,20 @@ function Godowns() {
 		]
 	}
 
-	useEffect(() => {
-		const getGodowns = async () => {
-			try {
-				const url = 'http://10.25.240.191:8085/api/godowns';
-				const res = await fetch(url);
-				const resData = await res.json();
-				setData(resData);
-			} catch (error) {
-				console.log(error);
-			}
+	const getGodowns = async () => {
+		try {
+			const url = 'http://10.25.240.191:8085/api/godowns';
+			const res = await fetch(url);
+			const resData = await res.json();
+			setData(resData);
+		} catch (error) {
+			console.log(error);
 		}
+	}
+
+	useEffect(() => {
 		getGodowns();
-	}, [])
+	}, [modal])
 
 	const handleDelete = async (id) => {
 		try {
@@ -63,22 +64,19 @@ function Godowns() {
 			const res = await fetch(url, {
 				method: 'DELETE'
 			})
-			const resData = await res.json();
-			
+			console.log(res);
+			getGodowns();
+			//const resData = await res.json();
+			//console.log(resData);
 		} catch (error) {
 			console.log(error);
 		}
-		console.log(id);
-		//await fetch('https://jsonplaceholder.typicode.com/posts/1', { method: 'DELETE' })
-	}
-
-	const handleEdit = (id) => {
-		
 	}
 
 	const openEditModal = (id) => {
 		const edit_obj = data.filter(item => item.godown_Id === id);
-		setModalData(edit_obj);
+		setModalData(edit_obj[0]);
+		console.log(modalData);
 		setModal(!modal);
 	}
 
@@ -86,7 +84,7 @@ function Godowns() {
 		<Layout>
 			<section class="py-3 sm:py-5">
 				<div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
-					<Modal modal={modal} setModal={setModal} modal_data={modal_data} editData={modalData} edit />
+					<Modal modal={modal} setModal={setModal} modal_data={modal_data} modalData={modalData} setModalData={setModalData} />
 					<div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
 						<div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
 							<div class="flex items-center flex-1 space-x-4">
