@@ -14,37 +14,44 @@ function Employees() {
       {
         label: "id",
         type: "text",
-        placeholder: "578"
+        placeholder: "578",
+        req: true,
       },
       {
         label: "name",
         type: "text",
-        placeholder: "John Carter"
+        placeholder: "John Carter",
+        req: true,
       },
       {
         label: "userName",
         type: "text",
-        placeholder: "john109"
+        placeholder: "john109",
+        req: true,
       },
       {
         label: "email",
         type: "text",
-        placeholder: "John007@gmail.com"
+        placeholder: "John007@gmail.com",
+        req: true,
       },
       {
         label: "password",
         type: "password",
-        placeholder: "••••••••"
+        placeholder: "••••••••",
+        req: true,
       },
       {
         label: "phoneNo",
         type: "text",
-        placeholder: "9218381309"
+        placeholder: "9218381309",
+        req: true,
       },
       {
         label: "type",
         type: "text",
-        placeholder: "0 for admin, 1 for employee"
+        placeholder: "0 for admin, 1 for employee",
+        req: true,
       }
     ]
   }

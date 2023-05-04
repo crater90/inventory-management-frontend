@@ -117,8 +117,34 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 								{modal_data?.fields?.map(field => {
 									return (
 										<div>
-											<label for={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{field.label}</label>
-											<input type={field.type} name={field.label} {...register(field.label, field.req && { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder={field.placeholder} />
+											<label for={field.label} 
+											className="block mb-2 text-sm font-medium text-gray-900 capitalize"
+											>
+												{field.label}
+											</label>
+											<input 
+											type={field.type}
+											 name={field.label} 
+											 {...register(field.label, 
+											 field.req && { required: `${field.label} is required`,
+											 })} 
+											 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" 
+											 placeholder={field.placeholder} 
+											 />
+											{errors[field.label] && (
+												<p className="text-red-500 text-sm mt-1">
+													{errors[field.label].message}
+												</p>
+											)}
+											{/* <input type={field.type} name={field.label} {...register(field.label, field.req && { required:{ value: true, message: "Required"  &&   <p role="alert"> required</p>}})}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder={field.placeholder} />
+											{errors.field && <p>{errors.field.message}</p>} */}
+											{/* <span>All the fields are required!</span> */}
+											{/* <input
+												{...register("firstName", { required: true })}
+												aria-invalid={errors.firstName ? "true" : "false"}
+											/> */}
+											{/* {errors.modal_data.fields?.type === 'required' && <p role="alert"> required</p>} */}
+
 										</div>
 									)
 								})}
