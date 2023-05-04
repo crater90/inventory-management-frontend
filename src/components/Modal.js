@@ -127,7 +127,13 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 											 name={field.label} 
 											 {...register(field.label, 
 											 field.req && { required: `${field.label} is required`,
-											 })} 
+											 pattern: {
+												value: field.label === "phoneNo" ? /^[0-9]{10}$/ : (field.label === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i : undefined),
+												message: field.label === "phoneNo" ? "Phone number must be 10 digits long" : (field.label === "email" ? "Please enter a valid email" : undefined)
+											  }
+											//  pattern: field.label === "phoneNo" ? {value: /^[0-9]{10}$/, message: "Phone number must be 10 digits long"} : undefined,
+											//  pattern: field.label ==="email" ? {value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i, message:"enter correct email"}: undefined
+											 })}
 											 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" 
 											 placeholder={field.placeholder} 
 											 />

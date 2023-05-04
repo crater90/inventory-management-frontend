@@ -46,6 +46,7 @@ function Employees() {
         type: "text",
         placeholder: "9218381309",
         req: true,
+        // min: 10,
       },
       {
         label: "type",
