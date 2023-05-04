@@ -3,20 +3,14 @@ import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 
 function Godowns() {
-	const columns = ["id", "name", "location", "capacity", "manager", "start date"]
 	const [data, setData] = useState([]);
 	const [modal, setModal] = useState(false);
 	const [modalData, setModalData] = useState(null);
+	const columns = ["id", "name", "location", "capacity", "manager", "start date"]
 
 	const modal_data = {
 		name: "Godown",
 		fields: [
-			// {
-			// 	label: "godown_Id",
-			// 	type: "text",
-			// 	placeholder: "578",
-			// 	req: true,
-			// },
 			{
 				label: "location",
 				type: "text",

@@ -22,7 +22,7 @@ function App() {
         <Route path='/:id' element={<Read />} />
         <Route path='/delete/' element={<Delete />} />
       </Route> */}
-      <Route element={<CheckAuth user={user} />}>
+      <Route element={<CheckAuth />}>
         <Route path="/" element={<Home />} />
         <Route path='/godowns' element={<Godowns />} />
         <Route path='/employees' element={<Employees />} />

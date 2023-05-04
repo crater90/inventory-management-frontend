@@ -5,11 +5,33 @@ import { useForm } from "react-hook-form";
 function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 
 	const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+	
 	const onSubmitAdd = async (data) => {
 		console.log("add api");
 		try {
-			const url = modal_data?.name === "Employee" ? 'http://10.25.240.191:8085/api/employees' : 'http://10.25.240.191:8085/api/godowns';
+			let url = "";
+			switch (modal_data?.name) {
+				case "Employee":
+					url = 'http://10.25.240.191:8085/api/employees'
+					break;
+				case "Godown":
+					url = 'http://10.25.240.191:8085/api/godowns'
+					break;
+				case "Inward":
+					url = 'http://10.25.240.191:8085/api/transactions'
+					break;
+				case "Outward":
+					url = 'http://10.25.240.191:8085/api/transactions'
+					break;
+				case "Return":
+					url = 'http://10.25.240.191:8085/api/transactions'
+					break;
+		
+				default:
+					break;
+			}
+
+			//const url = modal_data?.name === "Employee" ? 'http://10.25.240.191:8085/api/employees' : 'http://10.25.240.191:8085/api/godowns';
 			const res = await fetch(url, {
 				method: "POST",
 				headers: {
@@ -28,7 +50,28 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 	const onSubmitEdit = async (data) => {
 		console.log("edit api");
 		try {
-			const url = modal_data?.name === "Employee" ? `http://10.25.240.191:8085/api/employees/${modalData?.id}` : `http://10.25.240.191:8085/api/godowns/${modalData?.godown_Id}`;
+      let url = "";
+			switch (modal_data?.name) {
+				case "Employee":
+					url = `http://10.25.240.191:8085/api/employees${modalData?.id}`
+					break;
+				case "Godown":
+					url = `http://10.25.240.191:8085/api/godowns/${modalData?.godown_Id}`
+					break;
+				case "Inward":
+					url = `http://10.25.240.191:8085/api/transactions/${modalData?.transaction_Id}`
+					break;
+				case "Outward":
+					url = `http://10.25.240.191:8085/api/transactions/${modalData?.transaction_Id}`
+					break;
+				case "Return":
+					url = `http://10.25.240.191:8085/api/transactions/${modalData?.transaction_Id}`
+					break;
+		
+				default:
+					break;
+			}
+			//const url = modal_data?.name === "Employee" ? `http://10.25.240.191:8085/api/employees/${modalData?.id}` : `http://10.25.240.191:8085/api/godowns/${modalData?.godown_Id}`;
 			const res = await fetch(url, {
 				method: "PATCH",
 				headers: {
