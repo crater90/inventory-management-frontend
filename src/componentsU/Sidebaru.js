@@ -33,21 +33,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <header className="fixed z-50 top-0 left-0 w-full h-14 backgroundColor:'transparent'">
         <div className="max-w-screen-lg mx-auto flex items-center justify-end h-full px-4">
           <Link
-            to="/"
+            to="/u"
             className="text-black hover:text-gray-400 font-medium mx-2"
             style={{ textDecoration: "none", textAlign: "left" }}
           >
             Home
           </Link>
           <Link
-            to="/features"
+            to="/featuresu"
             className="text-black hover:text-gray-400 font-medium mx-2"
             style={{ textDecoration: "none", textAlign: "left" }}
           >
             Features
           </Link>
           <Link
-            to="/updates"
+            to="/updatesu"
             className="text-black hover:text-gray-400 font-medium mx-2"
             style={{ textDecoration: "none", textAlign: "left" }}
           >
@@ -106,7 +106,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
           {/* sidebar navigations */}
           <ul className="space-y-2 font-medium px-3 pt-2">
-            <li>
+            {/* <li>
               <Link
                 to="/godowns"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
@@ -114,8 +114,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <FontAwesomeIcon icon={faWarehouse} />
                 <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to="/employees"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
@@ -123,10 +123,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <FontAwesomeIcon icon={faUsers} />
                 <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
-                to="/inwards"
+                to="/inwardsu"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faBoxes} />
@@ -135,7 +135,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/outwards"
+                to="/outwardsu"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faTruck} />
@@ -153,11 +153,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li> */}
             <li>
               <Link
-<<<<<<< Updated upstream
-                to="/returns"
-=======
-                to="/returnss"
->>>>>>> Stashed changes
+                to="/returnsu"
                 class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
@@ -166,7 +162,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/reports"
+                to="/reportsu"
                 className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faChartBar} />

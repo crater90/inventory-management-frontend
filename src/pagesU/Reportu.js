@@ -1,113 +1,35 @@
 import React from "react";
-import Layout from "../components/Layout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Layoutu from "../componentsU/Layoutu";
 
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
-
-function Report() {
+function Reportu() {
   // dummy data
   const godowns = [
     { id: 1, year: "2019", godowns: "20" },
-<<<<<<< Updated upstream
-    { id: 2, year: "2020", godowns: "50" },
-    { id: 3, year: "2021", godowns: "30" },
-    { id: 4, year: "2022", godowns: "20" },
-    { id: 5, year: "2023", godowns: "40" },
-=======
     { id: 2, year: "2020", godowns: "30" },
     { id: 3, year: "2021", godowns: "50" },
     { id: 4, year: "2022", godowns: "75" },
     { id: 5, year: "2023", godowns: "100" },
->>>>>>> Stashed changes
   ];
 
   const employees = [
     { id: 1, year: "2019", employees: "80" },
-<<<<<<< Updated upstream
-    { id: 2, year: "2020", employees: "210" },
-    { id: 3, year: "2021", employees: "140" },
-    { id: 4, year: "2022", employees: "90" },
-    { id: 5, year: "2023", employees: "180" },
-=======
     { id: 2, year: "2020", employees: "140" },
     { id: 3, year: "2021", employees: "210" },
     { id: 4, year: "2022", employees: "380" },
     { id: 5, year: "2023", employees: "490" },
->>>>>>> Stashed changes
   ];
 
   const deliveries = [
     { id: 1, year: "2019", deliveries: "1000" },
     { id: 2, year: "2020", deliveries: "3400" },
     { id: 3, year: "2021", deliveries: "4500" },
-<<<<<<< Updated upstream
-    { id: 4, year: "2022", deliveries: "3500" },
-    { id: 5, year: "2023", deliveries: "2500" },
-  ];
-
-  const getArrowIcon = (current, prev) => {
-    if (current > prev) {
-      return (
-        <FontAwesomeIcon
-          icon={faArrowUp}
-          className="text-green-500 inline-block ml-1"
-        />
-      );
-    } else if (current < prev) {
-      return (
-        <FontAwesomeIcon
-          icon={faArrowDown}
-          className="text-red-500 inline-block ml-1"
-        />
-      );
-    } else {
-      return null;
-    }
-  };
-
-  return (
-    <>
-      <Layout>
-        <div className="font-Inter p-4">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Report Page</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-              <h2 className="text-xl font-bold bg-gray-100 p-3">Godowns</h2>
-              <table className="table-auto w-full">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2">ID</th>
-                    <th className="px-4 py-2">Year</th>
-                    <th className="px-4 py-2">Godowns</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {godowns.map((godown, index) => (
-                    <tr key={godown.id}>
-                      <td className="border px-4 py-2">{godown.id}</td>
-                      <td className="border px-4 py-2">{godown.year}</td>
-                      <td className="border px-4 py-2">
-                        {godown.godowns}
-                        {index > 0 &&
-                          getArrowIcon(
-                            godown.godowns,
-                            godowns[index - 1].godowns
-                          )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-=======
     { id: 4, year: "2022", deliveries: "6800" },
     { id: 5, year: "2023", deliveries: "9800" },
   ];
 
   return (
     <>
-      <Layout>
+      <Layoutu>
         <div className="font-Inter p-4">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Report Page</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -133,7 +55,6 @@ function Report() {
               </table>
             </div>
 
->>>>>>> Stashed changes
             <div className="bg-white rounded-lg shadow overflow-hidden">
               <h2 className="text-xl font-bold bg-gray-100 p-3">Employees</h2>
               <table className="table-auto w-full">
@@ -145,13 +66,6 @@ function Report() {
                   </tr>
                 </thead>
                 <tbody>
-<<<<<<< Updated upstream
-                  {employees.map((employee, index) => (
-                    <tr key={employee.id}>
-                      <td className="border px-4 py-2">{employee.id}</td>
-                      <td className="border px-4 py-2">{employee.year}</td>
-                      <td className="border px-4 py-2">{employee.employees}</td>
-=======
                   {employees.map((employees) => (
                     <tr key={employees.id}>
                       <td className="border px-4 py-2">{employees.id}</td>
@@ -159,30 +73,19 @@ function Report() {
                       <td className="border px-4 py-2">
                         {employees.employees}
                       </td>
->>>>>>> Stashed changes
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
             <div className="bg-white rounded-lg shadow overflow-hidden">
-<<<<<<< Updated upstream
-              <h2 className="text-xl font-bold bg-gray-100 p-3">
-                Transactions
-              </h2>
-=======
               <h2 className="text-xl font-bold bg-gray-100 p-3">Deliveries</h2>
->>>>>>> Stashed changes
               <table className="table-auto w-full">
                 <thead>
                   <tr>
                     <th className="px-4 py-2">ID</th>
                     <th className="px-4 py-2">Year</th>
-<<<<<<< Updated upstream
-                    <th className="px-4 py-2">Transactions</th>
-=======
                     <th className="px-4 py-2">Deliveries</th>
->>>>>>> Stashed changes
                   </tr>
                 </thead>
                 <tbody>
@@ -200,8 +103,8 @@ function Report() {
             </div>
           </div>
         </div>
-      </Layout>
+      </Layoutu>
     </>
   );
 }
-export default Report;
+export default Reportu;
