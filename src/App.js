@@ -11,6 +11,7 @@ import Returns from './pages/Returns';
 import Reports from './pages/Report';
 import Updates from "./pages/Updates";
 import Features from "./pages/Features";
+import Stocks from './pages/Stocks';
 
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
         <Route path="/reports" element={<Reports />}></Route>
         <Route path="/updates" element={<Updates />}></Route>
         <Route path="/features" element={<Features />}></Route>
+        <Route path="/stocks" element={<Stocks />}></Route>
       </Route>
       <Route path="*" element={<div>Not found...</div>} />
     </Routes >
