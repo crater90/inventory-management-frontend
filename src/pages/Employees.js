@@ -51,11 +51,7 @@ function Employees() {
 
   const getEmployees = async () => {
     try {
-<<<<<<< Updated upstream
       const url = "http://10.11.245.159:8085/api/employees";
-=======
-      const url = "http://10.25.240.191:8085/api/employees";
->>>>>>> Stashed changes
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -70,11 +66,7 @@ function Employees() {
 
   const handleDelete = async (id) => {
     try {
-<<<<<<< Updated upstream
       const url = `http://10.11.245.159:8085/api/employees/${id}`;
-=======
-      const url = `http://10.25.240.191:8085/api/employees/${id}`;
->>>>>>> Stashed changes
       const res = await fetch(url, {
         method: "DELETE",
       });
