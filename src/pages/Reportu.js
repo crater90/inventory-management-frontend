@@ -1,10 +1,10 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Layoutu from "../components/Layoutu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
-function Report() {
+function Reportu() {
   // dummy data
   const godowns = [
     { id: 1, year: "2019", godowns: "20" },
@@ -52,7 +52,7 @@ function Report() {
 
   return (
     <>
-      <Layout>
+      <Layoutu>
         <div className="font-Inter p-4">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Report Page</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -133,8 +133,8 @@ function Report() {
             </div>
           </div>
         </div>
-      </Layout>
+      </Layoutu>
     </>
   );
 }
-export default Report;
+export default Reportu;

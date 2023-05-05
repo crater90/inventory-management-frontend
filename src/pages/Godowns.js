@@ -4,14 +4,12 @@ import Modal from "../components/Modal";
 
 function Godowns() {
   const columns = [
-    "id",
+    "Godown Name",
     "location",
     "capacity",
     "manager",
     "start date",
-    // "formatted_start_date",
   ];
-
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -20,9 +18,9 @@ function Godowns() {
     name: "Godown",
     fields: [
       {
-        label: "godown_Id",
+        label: "godownName",
         type: "text",
-        placeholder: "578",
+        placeholder: "GodownName",
         req: true,
       },
       {
@@ -48,58 +46,54 @@ function Godowns() {
         type: "date",
         req: true,
       },
-      //   {
-      //     label: "formatted_start_date",
-      //     type: "date",
-      //     req: true,
-      //   },
     ],
   };
 
-  useEffect(() => {
-    const getGodowns = async () => {
-      try {
-        const url = "http://10.25.240.191:8085/api/godowns";
-        const res = await fetch(url);
-        const resData = await res.json();
-        const formattedData = resData.map((item) => {
-          const date = new Date(item.start_date);
-          const day = date.getDate().toString().padStart(2, "0");
-          const month = (date.getMonth() + 1).toString().padStart(2, "0");
-          const year = date.getFullYear().toString();
-          const formattedDate = `${day} ${month} ${year}`;
-          return {
-            ...item,
-            formatted_start_date: formattedDate,
-          };
-        });
-        setData(formattedData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getGodowns();
-  }, []);
-
-  const handleDelete = async (id) => {
+  const getGodowns = async () => {
     try {
-      const url = `http://10.25.240.191:8085/api/godowns/${id}`;
-      const res = await fetch(url, {
-        method: "DELETE",
-      });
+      const url = "http://10.11.245.159:8085/api/godowns";
+      const res = await fetch(url);
       const resData = await res.json();
+      const formattedData = resData.map((item) => {
+        const date = new Date(item.start_date);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        const formattedDate = `${day} ${month} ${year}`;
+        return {
+          ...item,
+          formatted_start_date: formattedDate,
+        };
+      });
+      setData(formattedData);
     } catch (error) {
       console.log(error);
     }
-    console.log(id);
-    //await fetch('https://jsonplaceholder.typicode.com/posts/1', { method: 'DELETE' })
   };
 
-  const handleEdit = (id) => {};
+  useEffect(() => {
+    getGodowns();
+  }, [modal]);
+
+  const handleDelete = async (id) => {
+    try {
+      const url = `http://10.11.245.159:8085/api/godowns/${id}`;
+      const res = await fetch(url, {
+        method: "DELETE",
+      });
+      console.log(res);
+      getGodowns();
+      //const resData = await res.json();
+      //console.log(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const openEditModal = (id) => {
     const edit_obj = data.filter((item) => item.godown_Id === id);
-    setModalData(edit_obj);
+    setModalData(edit_obj[0]);
+    console.log(modalData);
     setModal(!modal);
   };
 
@@ -111,8 +105,8 @@ function Godowns() {
             modal={modal}
             setModal={setModal}
             modal_data={modal_data}
-            editData={modalData}
-            edit
+            modalData={modalData}
+            setModalData={setModalData}
           />
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
@@ -199,11 +193,17 @@ function Godowns() {
                   {data?.map((row) => {
                     return (
                       <tr class="border-b hover:bg-gray-100">
+                        {/* <td class="w-4 px-4 py-3">
+													<div class="flex items-center">
+														<input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 focus:ring-2" />
+														<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+													</div>
+												</td> */}
                         <th
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.godown_Id}
+                          {row.godownName}
                         </th>
                         <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
@@ -216,9 +216,6 @@ function Godowns() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.manager}
                         </td>
-                        {/* <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.start_date}
-                        </td> */}
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.formatted_start_date}
                         </td>

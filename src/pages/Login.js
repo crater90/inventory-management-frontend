@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
     console.log("credentials are", credentials);
     fetch(
-      `http://10.25.240.191:8085/api/employees/login?userName=${credentials.username}&&password=${credentials.password}`,
+      `http://10.11.245.159:8085/api/employees/login?userName=${credentials.username}&&password=${credentials.password}`,
       {
         method: "POST",
         headers: {
@@ -69,7 +69,7 @@ function Login() {
                   value={credentials.username}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="crater90"
+                  placeholder="Username"
                 />
               </div>
               <div>

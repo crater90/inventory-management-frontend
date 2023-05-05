@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layoutu from "../components/Layoutu";
 import Modal from "../components/Modal";
 
-function Outwards() {
+function Outwardsu() {
+  const [data, setData] = useState(null);
   const columns_name = [
     "id",
     "product",
@@ -11,117 +12,26 @@ function Outwards() {
     "delivered to",
     "delivery date",
   ];
-  const [data, setData] = useState(null);
-  const [modal, setModal] = useState(false);
-  const [modalData, setModalData] = useState(null);
-
-  const modal_data = {
-    name: "Outward",
-    fields: [
-      {
-        label: "item_name",
-        type: "text",
-        placeholder: "dell XPS",
-        req: true,
-      },
-      {
-        label: "supplier_name",
-        type: "text",
-        placeholder: "Anith",
-        req: true,
-      },
-      {
-        label: "invoice_no",
-        type: "text",
-        placeholder: "0076",
-        req: true,
-      },
-      {
-        label: "quantity",
-        type: "text",
-        placeholder: "17",
-        req: true,
-      },
-      {
-        label: "checked_by",
-        type: "text",
-        placeholder: "kamran",
-        req: true,
-      },
-      {
-        label: "item_type",
-        type: "text",
-        placeholder: "please write 2",
-        req: true,
-      },
-      {
-        label: "bill_value",
-        type: "text",
-        placeholder: "4999",
-        req: true,
-      },
-      {
-        label: "delivered_to",
-        type: "text",
-        placeholder: "John",
-        req: true,
-      },
-      {
-        label: "date_of_del",
-        type: "date",
-        req: true,
-      },
-    ],
-  };
-
-  const getOutwards = async () => {
-    try {
-      const url = "http://10.11.245.159:8085/api/transactions/item-type/2";
-      const res = await fetch(url);
-      const resData = await res.json();
-      setData(resData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const getOutwards = async () => {
+      try {
+        const url = "http://10.11.245.159:8085/api/transactions/item-type/2";
+        const res = await fetch(url);
+        const resData = await res.json();
+        setData(resData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getOutwards();
-  }, [modal]);
-
-  const handleDelete = async (id) => {
-    try {
-      const url = `http://10.11.245.159:8085/api/transactions/${id}`;
-      const res = await fetch(url, {
-        method: "DELETE",
-      });
-      console.log(res);
-      getOutwards();
-      //const resData = await res.json();
-      //console.log(resData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.godown_Id === id);
-    setModalData(edit_obj[0]);
-    console.log(modalData);
-    setModal(!modal);
-  };
+  }, []);
 
   return (
-    <Layout>
+    <Layoutu>
       <main className="bg-gray-50 py-3 sm:py-5">
         <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
-          <Modal
-            modal={modal}
-            setModal={setModal}
-            modal_data={modal_data}
-            modalData={modalData}
-            setModalData={setModalData}
-          />
+          {/* <Modal modal={modal} setModal={setModal} /> */}
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div class="flex items-center flex-1 space-x-4">
@@ -158,29 +68,14 @@ function Outwards() {
                   </div>
                 </form>
               </div>
-              <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-                <button
-                  onClick={() => setModal(true)}
-                  type="button"
-                  class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5 h-5 mr-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 6v12m6-6H6"
-                    />
+              {/* <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                <button onClick={() => setModal(true)} type="button" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
                   </svg>
                   Add
                 </button>
-              </div>
+              </div> */}
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-sm text-left text-gray-500">
@@ -199,8 +94,8 @@ function Outwards() {
                         </th>
                       );
                     })}
-                    <th scope="col" class="px-2 py-3"></th>
-                    <th scope="col" class="px-2 py-3"></th>
+                    {/* <th scope="col" class="px-2 py-3"></th>
+                    <th scope="col" class="px-2 py-3"></th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -238,44 +133,16 @@ function Outwards() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.date_of_del}
                         </td>
-                        <td
-                          onClick={() => openEditModal(row.transaction_Id)}
-                          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-5 h-5 text-gray-700"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
+                        {/* <td onClick={handleEdit} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 text-gray-700">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                           </svg>
                         </td>
-                        <td
-                          onClick={() => handleDelete(row.transaction_Id)}
-                          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-5 h-5 text-red-600"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                            />
+                        <td onClick={handleDelete} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 text-red-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                           </svg>
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })}
@@ -326,8 +193,8 @@ function Outwards() {
           </div>
         </div>
       </main>
-    </Layout>
+    </Layoutu>
   );
 }
 
-export default Outwards;
+export default Outwardsu;
