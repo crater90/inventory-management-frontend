@@ -12,11 +12,6 @@ function Employees() {
     name: "Employee",
     fields: [
       {
-        label: "id",
-        type: "text",
-        placeholder: "578",
-      },
-      {
         label: "name",
         type: "text",
         placeholder: "John Carter",
@@ -51,7 +46,7 @@ function Employees() {
 
   const getEmployees = async () => {
     try {
-      const url = "http://10.11.245.159:8085/api/employees";
+      const url = "http://localhost:8085/api/employees";
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -66,7 +61,7 @@ function Employees() {
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://10.11.245.159:8085/api/employees/${id}`;
+      const url = `http://localhost:8085/api/employees/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
@@ -197,7 +192,7 @@ function Employees() {
                         </td>
                         <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                            {row.type === 1 ? "admin" : "employee"}
+                            {row.type === 0 ? "admin" : "employee"}
                           </span>
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">

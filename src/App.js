@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import Homeu from "./pages/Homeu";
+import Homeu from "./pagesu/Homeu";
 import CheckAuth from "./components/CheckAuth";
 import Godowns from "./pages/Godowns";
 import Employees from "./pages/Employees";
@@ -10,14 +10,14 @@ import Inwards from "./pages/Inwards";
 import Outwards from "./pages/Outwards";
 import Returns from "./pages/Returns";
 import Reports from "./pages/Report";
-import Inwardsu from "./pages/Inwardsu";
-import Outwardsu from "./pages/Outwardsu";
-import Returnsu from "./pages/Returnsu";
-import Reportsu from "./pages/Reportu";
+import Inwardsu from "./pagesu/Inwardsu";
+import Outwardsu from "./pagesu/Outwardsu";
+import Returnsu from "./pagesu/Returnsu";
+import Reportsu from "./pagesu/Reportu";
 import Updates from "./pages/Updates";
 import Features from "./pages/Features";
-import Updatesu from "./pages/Updatesu";
-import Featuresu from "./pages/Featuresu";
+import Updatesu from "./pagesu/Updatesu";
+import Featuresu from "./pagesu/Featuresu";
 
 function App() {
   return (

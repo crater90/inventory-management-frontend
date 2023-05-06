@@ -177,7 +177,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <div className="w-10 h-10 rounded-full border border-slate-500 flex items-center justify-center">
                 <FontAwesomeIcon icon={faUser} />
               </div>
-              <h1 className="text-base mb-0 pl-2">User01</h1>
+              <h1 className="text-base mb-0 pl-2">User</h1>
             </div>
 
             <button className="mr-0" onClick={() => navigate("/login")}>

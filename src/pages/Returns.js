@@ -10,7 +10,6 @@ function Returns() {
     "bill value",
     "return date",
     "returned by",
-    "checked by",
   ];
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
@@ -77,7 +76,7 @@ function Returns() {
 
   const getReturns = async () => {
     try {
-      const url = "http://10.11.245.159:8085/api/transactions/item-type/3";
+      const url = "http://localhost:8085/api/transactions/item-type/3";
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -92,7 +91,7 @@ function Returns() {
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://10.11.245.159:8085/api/transactions/${id}`;
+      const url = `http://localhost:8085/api/transactions/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
@@ -106,7 +105,7 @@ function Returns() {
   };
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.godown_Id === id);
+    const edit_obj = data.filter((item) => item.transaction_Id === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
     setModal(!modal);
@@ -239,9 +238,7 @@ function Returns() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.return_by}
                         </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.checked_by}
-                        </td>
+
                         <td
                           onClick={() => openEditModal(row.transaction_Id)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"

@@ -15,26 +15,26 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
       let url = "";
       switch (modal_data?.name) {
         case "Employee":
-          url = "http://10.11.245.159:8085/api/employees";
+          url = "http://localhost:8085/api/employees";
           break;
         case "Godown":
-          url = "http://10.11.245.159:8085/api/godowns";
+          url = "http://localhost:8085/api/godowns";
           break;
         case "Inward":
-          url = "http://10.11.245.159:8085/api/transactions";
+          url = "http://localhost:8085/api/transactions";
           break;
         case "Outward":
-          url = "http://10.11.245.159:8085/api/transactions";
+          url = "http://localhost:8085/api/transactions";
           break;
         case "Return":
-          url = "http://10.11.245.159:8085/api/transactions";
+          url = "http://localhost:8085/api/transactions";
           break;
 
         default:
           break;
       }
 
-      //const url = modal_data?.name === "Employee" ? 'http://10.11.245.159:8085/api/employees' : 'http://10.11.245.159:8085/api/godowns';
+      //const url = modal_data?.name === "Employee" ? 'http://localhost:8085/api/employees' : 'http://localhost:8085/api/godowns';
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -51,29 +51,30 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 
   const onSubmitEdit = async (data) => {
     console.log("edit api");
+    console.log(data);
     try {
       let url = "";
       switch (modal_data?.name) {
         case "Employee":
-          url = `http://10.11.245.159:8085/api/employees${modalData?.id}`;
+          url = `http://localhost:8085/api/employees/${modalData?.id}`;
           break;
         case "Godown":
-          url = `http://10.11.245.159:8085/api/godowns/${modalData?.godown_Id}`;
+          url = `http://localhost:8085/api/godowns/${modalData?.godown_Id}`;
           break;
         case "Inward":
-          url = `http://10.11.245.159:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
           break;
         case "Outward":
-          url = `http://10.11.245.159:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
           break;
         case "Return":
-          url = `http://10.11.245.159:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
           break;
 
         default:
           break;
       }
-      //const url = modal_data?.name === "Employee" ? `http://10.11.245.159:8085/api/employees/${modalData?.id}` : `http://10.11.245.159:8085/api/godowns/${modalData?.godown_Id}`;
+      //const url = modal_data?.name === "Employee" ? `http://localhost:8085/api/employees/${modalData?.id}` : `http://10.11.245.159:8085/api/godowns/${modalData?.godown_Id}`;
       const res = await fetch(url, {
         method: "PATCH",
         headers: {

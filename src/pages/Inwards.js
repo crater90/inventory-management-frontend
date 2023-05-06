@@ -71,7 +71,7 @@ function Inwards() {
 
   const getInwards = async () => {
     try {
-      const url = "http://10.11.245.159:8085/api/transactions/item-type/1";
+      const url = "http://localhost:8085/api/transactions/item-type/1";
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -86,7 +86,7 @@ function Inwards() {
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://10.11.245.159:8085/api/transactions/${id}`;
+      const url = `http://localhost:8085/api/transactions/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
@@ -100,7 +100,7 @@ function Inwards() {
   };
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.godown_Id === id);
+    const edit_obj = data.filter((item) => item.transaction_Id === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
     setModal(!modal);

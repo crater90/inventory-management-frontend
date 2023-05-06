@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layoutu from "../componentsU/Layoutu";
+import Layoutu from "../componentsu/Layoutu";
 import Modal from "../components/Modal";
 
 function Inwardsu() {
@@ -7,18 +7,17 @@ function Inwardsu() {
   const columns_name = [
     "id",
     "product",
-    "supplier",
+    "supplier name",
     "quantity",
-    "total",
+    "bill value",
     "supply date",
-    "godown id",
     "checked by",
   ];
 
   useEffect(() => {
     const getInwards = async () => {
       try {
-        const url = "http://10.25.240.191:8085/api/transactions/item-type/1";
+        const url = "http://localhost:8085/api/transactions/item-type/1";
         const res = await fetch(url);
         const resData = await res.json();
         setData(resData);
@@ -133,9 +132,7 @@ function Inwardsu() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
                           {row.date_of_supply}
                         </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.godowns?.godown_Id}
-                        </td>
+
                         {/* <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
                         </td> */}

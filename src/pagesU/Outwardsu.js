@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layoutu from "../componentsU/Layoutu";
+import Layoutu from "../componentsu/Layoutu";
 import Modal from "../components/Modal";
 
 function Outwardsu() {
@@ -8,8 +8,7 @@ function Outwardsu() {
     "id",
     "product",
     "quantity",
-    "total",
-    "godown id",
+    "bill value",
     "delivered to",
     "delivery date",
   ];
@@ -17,7 +16,7 @@ function Outwardsu() {
   useEffect(() => {
     const getOutwards = async () => {
       try {
-        const url = "http://10.25.240.191:8085/api/transactions/item-type/2";
+        const url = "http://localhost:8085/api/transactions/item-type/2";
         const res = await fetch(url);
         const resData = await res.json();
         setData(resData);
@@ -127,9 +126,7 @@ function Outwardsu() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.bill_value}
                         </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.godowns?.godown_Id}
-                        </td>
+
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.delivered_to}
                         </td>

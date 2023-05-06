@@ -51,7 +51,7 @@ function Godowns() {
 
   const getGodowns = async () => {
     try {
-      const url = "http://10.11.245.159:8085/api/godowns";
+      const url = "http://localhost:8085/api/godowns";
       const res = await fetch(url);
       const resData = await res.json();
       const formattedData = resData.map((item) => {
@@ -77,7 +77,7 @@ function Godowns() {
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://10.11.245.159:8085/api/godowns/${id}`;
+      const url = `http://localhost:8085/api/godowns/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });

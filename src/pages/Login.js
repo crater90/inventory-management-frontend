@@ -20,7 +20,7 @@ function Login() {
     e.preventDefault();
     console.log("credentials are", credentials);
     fetch(
-      `http://10.11.245.159:8085/api/employees/login?userName=${credentials.username}&&password=${credentials.password}`,
+      `http://localhost:8085/api/employees/login?userName=${credentials.username}&&password=${credentials.password}`,
       {
         method: "POST",
         headers: {

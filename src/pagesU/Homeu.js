@@ -1,5 +1,5 @@
 import React from "react";
-import Layoutu from "../componentsU/Layoutu";
+import Layoutu from "../componentsu/Layoutu";
 
 function Homeu() {
   return (
