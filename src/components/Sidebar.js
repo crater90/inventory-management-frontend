@@ -11,7 +11,7 @@ import {
   faTruck,
   faExchangeAlt,
   faChartBar,
-  faUserAlt,
+  faBoxesPacking,
 } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -167,6 +167,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 <FontAwesomeIcon icon={faChartBar} />
                 <span class="flex-1 ml-3 whitespace-nowrap ">Report</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/stocks"
+                className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faBoxesPacking} />
+                <span class="flex-1 ml-3 whitespace-nowrap ">Stock</span>
               </Link>
             </li>
           </ul>

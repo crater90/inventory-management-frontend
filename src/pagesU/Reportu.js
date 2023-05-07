@@ -15,19 +15,19 @@ function Reportu() {
   ];
 
   const employees = [
-    { id: 1, year: "2019", employees: "80" },
-    { id: 2, year: "2020", employees: "210" },
+    { id: 1, year: "2019", employees: "120" },
+    { id: 2, year: "2020", employees: "100" },
     { id: 3, year: "2021", employees: "140" },
-    { id: 4, year: "2022", employees: "90" },
-    { id: 5, year: "2023", employees: "180" },
+    { id: 4, year: "2022", employees: "180" },
+    { id: 5, year: "2023", employees: "210" },
   ];
 
   const deliveries = [
-    { id: 1, year: "2019", deliveries: "1000" },
+    { id: 1, year: "2019", deliveries: "1500" },
     { id: 2, year: "2020", deliveries: "3400" },
-    { id: 3, year: "2021", deliveries: "4500" },
-    { id: 4, year: "2022", deliveries: "3500" },
-    { id: 5, year: "2023", deliveries: "2500" },
+    { id: 3, year: "2021", deliveries: "3000" },
+    { id: 4, year: "2022", deliveries: "4500" },
+    { id: 5, year: "2023", deliveries: "6500" },
   ];
 
   const getArrowIcon = (current, prev) => {
@@ -100,7 +100,14 @@ function Reportu() {
                     <tr key={employee.id}>
                       <td className="border px-4 py-2">{employee.id}</td>
                       <td className="border px-4 py-2">{employee.year}</td>
-                      <td className="border px-4 py-2">{employee.employees}</td>
+                      <td className="border px-4 py-2">
+                        {employee.employees}
+                        {index > 0 &&
+                          getArrowIcon(
+                            employee.employees,
+                            employees[index - 1].employees
+                          )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -119,12 +126,17 @@ function Reportu() {
                   </tr>
                 </thead>
                 <tbody>
-                  {deliveries.map((deliveries) => (
-                    <tr key={deliveries.id}>
-                      <td className="border px-4 py-2">{deliveries.id}</td>
-                      <td className="border px-4 py-2">{deliveries.year}</td>
+                  {deliveries.map((delivery, index) => (
+                    <tr key={delivery.id}>
+                      <td className="border px-4 py-2">{delivery.id}</td>
+                      <td className="border px-4 py-2">{delivery.year}</td>
                       <td className="border px-4 py-2">
-                        {deliveries.deliveries}
+                        {delivery.deliveries}
+                        {index > 0 &&
+                          getArrowIcon(
+                            delivery.deliveries,
+                            deliveries[index - 1].deliveries
+                          )}
                       </td>
                     </tr>
                   ))}
