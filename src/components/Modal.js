@@ -1,5 +1,5 @@
-import React from "react";
 import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 
 function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
   const {
@@ -8,6 +8,11 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
     watch,
     formState: { errors },
   } = useForm();
+  const [selectedOption, setSelectedOption] = useState("admin");
+
+  function handleOptionChange(event) {
+    setSelectedOption(event.target.value);
+  }
 
   const onSubmitAdd = async (data) => {
     console.log("add api");
@@ -62,13 +67,13 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
           url = `http://localhost:8085/api/godowns/${modalData?.godown_Id}`;
           break;
         case "Inward":
-          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transactionId}`;
           break;
         case "Outward":
-          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transactionId}`;
           break;
         case "Return":
-          url = `http://localhost:8085/api/transactions/${modalData?.transaction_Id}`;
+          url = `http://localhost:8085/api/transactions/${modalData?.transactionId}`;
           break;
 
         default:
@@ -227,26 +232,71 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
             <form onSubmit={handleSubmit(onSubmitAdd)}>
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
                 {modal_data?.fields?.map((field) => {
-                  return (
-                    <div>
-                      <label
-                        for={field.label}
-                        className="block mb-2 text-sm font-medium text-gray-900 capitalize"
-                      >
-                        {field.label}
-                      </label>
-                      <input
-                        type={field.type}
-                        name={field.label}
-                        {...register(
-                          field.label,
-                          field.req && { required: true }
+                  if (field.label === "type") {
+                    return (
+                      <div>
+                        <label htmlFor={field.label}>{field.label}:</label>
+                        <select
+                          id={field.label}
+                          name={field.label}
+                          {...register(field.label, {
+                            required: field.req && `${field.label} is required`,
+                          })}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+                        >
+                          {field.options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                        {errors[field.label] && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors[field.label].message}
+                          </p>
                         )}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                        placeholder={field.placeholder}
-                      />
-                    </div>
-                  );
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div>
+                        <label
+                          htmlFor={field.label}
+                          className="block mb-2 text-sm font-medium text-gray-900 capitalize"
+                        >
+                          {field.label}
+                        </label>
+                        <input
+                          type={field.type}
+                          name={field.label}
+                          {...register(field.label, {
+                            required: field.req && `${field.label} is required`,
+                            pattern: {
+                              value:
+                                field.label === "phoneNo"
+                                  ? /^[0-9]{10}$/
+                                  : field.label === "email"
+                                  ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
+                                  : undefined,
+                              message:
+                                field.label === "phoneNo"
+                                  ? "Phone number must be 10 digits long"
+                                  : field.label === "email"
+                                  ? "Please enter a valid email"
+                                  : undefined,
+                            },
+                          })}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+                          placeholder={field.placeholder}
+                        />
+                        {errors[field.label] && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors[field.label].message}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  }
                 })}
                 {/*<div>
 								<label for="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>

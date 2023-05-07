@@ -15,31 +15,42 @@ function Employees() {
         label: "name",
         type: "text",
         placeholder: "John Carter",
+        req: true,
       },
       {
         label: "userName",
         type: "text",
         placeholder: "john109",
+        req: true,
       },
       {
         label: "email",
         type: "text",
         placeholder: "John007@gmail.com",
+        req: true,
       },
       {
         label: "password",
         type: "password",
         placeholder: "••••••••",
+        req: true,
       },
       {
         label: "phoneNo",
         type: "text",
         placeholder: "9218381309",
+        req: true,
       },
       {
         label: "type",
-        type: "text",
-        placeholder: "0 for admin, 1 for employee",
+        type: "select",
+        options: [
+          { value: "0", label: "SuperAdmin" },
+          { value: "1", label: "Admin" },
+          { value: "2", label: "Employee" },
+        ],
+        placeholder: "0 for superadmin, 1 for admin, 2 for employee",
+        req: true,
       },
     ],
   };
@@ -191,10 +202,21 @@ function Employees() {
                           {row.userName}
                         </td>
                         <td class="px-4 py-2">
-                          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                            {row.type === 0 ? "admin" : "employee"}
-                          </span>
+                          {row.type === 0 ? (
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
+                              super admin
+                            </span>
+                          ) : row.type === 1 ? (
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
+                              admin
+                            </span>
+                          ) : (
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
+                              employee
+                            </span>
+                          )}
                         </td>
+
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.email}
                         </td>

@@ -1,7 +1,7 @@
 import React from "react";
 import Layoutu from "../componentsu/Layoutu";
 
-function Home() {
+function Homeu() {
   return (
     <Layoutu>
       <div style={{ fontFamily: "Inter" }}>
@@ -131,4 +131,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Homeu;

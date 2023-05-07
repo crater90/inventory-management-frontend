@@ -1,9 +1,9 @@
 import React from "react";
-import Layoutu from "../componentsu/Layoutu";
+import Layout from "../components/Layout";
 
-function Homeu() {
+function Home() {
   return (
-    <Layoutu>
+    <Layout>
       <div style={{ fontFamily: "Inter" }}>
         <div style={{ padding: "1rem" }}>
           <div style={{ padding: "1rem" }}>
@@ -127,8 +127,8 @@ function Homeu() {
           </div>
         </div>
       </div>
-    </Layoutu>
+    </Layout>
   );
 }
 
-export default Homeu;
+export default Home;

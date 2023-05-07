@@ -217,10 +217,10 @@ function Returns() {
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.transaction_Id}
+                          {row.transactionId}
                         </th>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.item_name}
+                          {row.itemName}
                         </td>
                         {/* <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
@@ -229,14 +229,14 @@ function Returns() {
                           {row.quantity}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.bill_value}
+                          {row.billValue}
                         </td>
 
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.date_of_return}
+                          {row.dateOfReturn}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.return_by}
+                          {row.returnBy}
                         </td>
 
                         <td

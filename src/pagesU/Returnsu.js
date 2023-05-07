@@ -112,10 +112,10 @@ function Returnsu() {
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.transaction_Id}
+                          {row.transactionId}
                         </th>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.item_name}
+                          {row.itemName}
                         </td>
                         {/* <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
@@ -124,14 +124,14 @@ function Returnsu() {
                           {row.quantity}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.bill_value}
+                          {row.billValue}
                         </td>
 
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.date_of_return}
+                          {row.dateOfReturn}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.return_by}
+                          {row.returnBy}
                         </td>
                         {/* <td onClick={handleEdit} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 text-gray-700">

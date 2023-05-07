@@ -19,19 +19,19 @@ function Outwards() {
     name: "Outward",
     fields: [
       {
-        label: "item_name",
+        label: "itemName",
         type: "text",
         placeholder: "dell XPS",
         req: true,
       },
       {
-        label: "supplier_name",
+        label: "supplierName",
         type: "text",
         placeholder: "Anith",
         req: true,
       },
       {
-        label: "invoice_no",
+        label: "invoiceNo",
         type: "text",
         placeholder: "0076",
         req: true,
@@ -43,31 +43,31 @@ function Outwards() {
         req: true,
       },
       {
-        label: "checked_by",
+        label: "checkedBy",
         type: "text",
         placeholder: "kamran",
         req: true,
       },
       {
-        label: "item_type",
+        label: "itemType",
         type: "text",
         placeholder: "please write 2",
         req: true,
       },
       {
-        label: "bill_value",
+        label: "billValue",
         type: "text",
         placeholder: "4999",
         req: true,
       },
       {
-        label: "delivered_to",
+        label: "deliveredTo",
         type: "text",
         placeholder: "John",
         req: true,
       },
       {
-        label: "date_of_del",
+        label: "dateOfDel",
         type: "date",
         req: true,
       },
@@ -217,10 +217,10 @@ function Outwards() {
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.transaction_Id}
+                          {row.transactionId}
                         </th>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.item_name}
+                          {row.itemName}
                         </td>
                         {/* <td class="px-4 py-2">
                           <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
@@ -229,14 +229,14 @@ function Outwards() {
                           {row.quantity}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.bill_value}
+                          {row.billValue}
                         </td>
 
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.delivered_to}
+                          {row.deliveredTo}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.date_of_del}
+                          {row.dateOfDel}
                         </td>
                         <td
                           onClick={() => openEditModal(row.transaction_Id)}
