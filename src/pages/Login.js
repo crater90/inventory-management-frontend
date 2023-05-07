@@ -1,13 +1,16 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
+import { toast } from 'react-hot-toast'
 
 function Login() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
   })
+
+  const [validationErrors, setValidationErrors] = useState(false);
 
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AuthContext);
@@ -20,10 +23,15 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if ((credentials.username === "") || (credentials.password === "")) {
+      setValidationErrors(true);
+      return;
+    }
+    const notification = toast.loading('Logging in...')
     console.log('credentials are', credentials);
     setIsLoggedIn(true);
-    navigate('/');
-    fetch(`http://10.25.240.191:8085/api/employees/login?userName=${credentials.username}&password=${credentials.password}`, {
+    //fetch(`http://10.25.240.191:8085/api/employees/login?userName=${credentials.username}&password=${credentials.password}`, {
+    fetch('https://run.mocky.io/v3/cb2befd3-a545-45e2-930f-d32b742c2a56', {
       method: 'POST',
       headers: {
         "Content-type": "application/json"
@@ -31,14 +39,21 @@ function Login() {
       body: JSON.stringify(credentials)
     })
       .then(res => res.json())
-      .then((data) => {
-        if (data == 1 || 0) {
+      .then(data => {
+        if (data.type === 2) {
+          toast.error('User not authorised');
+        } else {
+          localStorage.setItem("userLogged", true);
           setIsLoggedIn(true);
+          toast.success('User logged in');
           navigate('/');
         }
-        setIsLoggedIn(false);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        toast.error('Unable to login')
+      })
+      .finally(() => toast.dismiss(notification))
   }
 
   return (
@@ -56,11 +71,13 @@ function Login() {
               <div>
                 <label htmlFor="username" className="block mb-2 text-sm font-medium ">Username</label>
                 <input type="text" name="username" id="username" value={credentials.username} onChange={handleChange} className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="crater90" />
+                
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium ">Password</label>
                 <input type="password" name="password" id="password" value={credentials.password} onChange={handleChange} placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" />
               </div>
+              {validationErrors && (<p className="text-red-500 text-sm mt-4">Please fill all the fields..</p>)}
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
@@ -73,6 +90,9 @@ function Login() {
                 <a href="#" className="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
               </div>
               <button type="submit" className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-md text-sm px-5 py-2.5 text-center">Sign in</button>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Don’t have an account yet? <Link to="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+              </p>
             </form>
           </div>
         </div>
