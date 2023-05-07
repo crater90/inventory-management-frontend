@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 import {
-  faWarehouse,
   faUsers,
   faBoxes,
   faUser,
@@ -12,6 +12,7 @@ import {
   faExchangeAlt,
   faChartBar,
   faUserAlt,
+  faIndustry,
 } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -19,6 +20,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const firstChar = username.charAt(0).toUpperCase();
   const [showEmail, setShowEmail] = React.useState(false);
   const navigate = useNavigate();
+  const {setIsLoggedIn} = useContext(AuthContext);
 
   const handleMouseEnter = () => {
     setShowEmail(true);
@@ -30,46 +32,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   return (
     <>
-      <header className="fixed z-50 top-0 left-0 w-full h-14 backgroundColor:'transparent'">
+      {/* <header className="fixed z-50 top-0 left-0 w-full h-14 backgroundColor:'transparent'">
         <div className="max-w-screen-lg mx-auto flex items-center justify-end h-full px-4">
-          <Link
-            to="/"
-            className="text-black hover:text-gray-400 font-medium mx-2"
-            style={{ textDecoration: "none", textAlign: "left" }}
-          >
-            Home
-          </Link>
-          <Link
-            to="/features"
-            className="text-black hover:text-gray-400 font-medium mx-2"
-            style={{ textDecoration: "none", textAlign: "left" }}
-          >
-            Features
-          </Link>
-          <Link
-            to="/updates"
-            className="text-black hover:text-gray-400 font-medium mx-2"
-            style={{ textDecoration: "none", textAlign: "left" }}
-          >
-            Updates
-          </Link>
-          <div
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="relative mx-2"
-            style={{ textAlign: "left" }}
-          >
-            <span className="text-black hover:text-gray-400 font-medium">
-              Contact
-            </span>
-            {showEmail && (
-              <div className="absolute z-10 bg-white rounded-lg shadow-lg p-4">
-                <a href="mailto:help@support.com">help@support.com</a>
-              </div>
-            )}
-          </div>
+          
         </div>
-      </header>
+      </header> */}
 
       <aside
         id="default-sidebar"
@@ -110,7 +77,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 to="/godowns"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
-                <FontAwesomeIcon icon={faWarehouse} />
+                <FontAwesomeIcon icon={faIndustry} />
                 <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
               </Link>
             </li>
@@ -153,10 +120,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <li>
               <Link
                 to="/returns"
-                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+                className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
-                <span class="flex-1 ml-3 whitespace-nowrap">Returns</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>
             </li>
             <li>
@@ -165,7 +132,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faChartBar} />
-                <span class="flex-1 ml-3 whitespace-nowrap ">Report</span>
+                <span className="flex-1 ml-3 whitespace-nowrap ">Report</span>
               </Link>
             </li>
           </ul>
@@ -179,18 +146,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <h1 className="text-base mb-0 pl-2">User01</h1>
             </div>
 
-            <button className="mr-0" onClick={() => navigate("/login")}>
+            <button className="mr-0" onClick={() => {
+              localStorage.removeItem("userLogged");
+              setIsLoggedIn(false);
+              navigate("/login")
+
+            }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
                 />
               </svg>
