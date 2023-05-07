@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Homeu from "./pagesu/Homeu";
 import Homea from "./pagesa/Homea";
+import Forgot from "./pages/Forgot";
 import CheckAuth from "./components/CheckAuth";
 import Godowns from "./pages/Godowns";
 import Godownsa from "./pagesa/Godownsa";
@@ -27,11 +28,13 @@ import Updatesu from "./pagesu/Updatesu";
 import Updatesa from "./pagesa/Updatesa";
 import Featuresu from "./pagesu/Featuresu";
 import Featuresa from "./pagesa/Featuresa";
+import Register from "./pages/Register";
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       {/* <Route path='/godowns' element={<Godowns />}>
         <Route path='/add' element={<Create />} />
         <Route path='/:id' element={<Read />} />
@@ -41,6 +44,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/u" element={<Homeu />} />
         <Route path="/a" element={<Homea />} />
+        <Route path="/forgot" element={<Forgot />} />
         <Route path="/godowns" element={<Godowns />} />
         <Route path="/godownsa" element={<Godownsa />} />
         <Route path="/employees" element={<Employees />} />

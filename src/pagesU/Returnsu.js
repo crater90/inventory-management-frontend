@@ -13,17 +13,29 @@ function Returnsu() {
     "returned by",
   ];
 
+  const getReturns = async () => {
+    try {
+      const url = "http://localhost:8085/api/transactions/item-type/3";
+      const res = await fetch(url);
+      const resData = await res.json();
+      const formattedData = resData.map((item) => {
+        const date = new Date(item.dateOfReturn);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        const formattedDate = `${day} ${month} ${year}`;
+        return {
+          ...item,
+          formatted_dateOfReturn: formattedDate,
+        };
+      });
+      setData(formattedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getReturns = async () => {
-      try {
-        const url = "http://localhost:8085/api/transactions/item-type/3";
-        const res = await fetch(url);
-        const resData = await res.json();
-        setData(resData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getReturns();
   }, []);
 
@@ -128,7 +140,7 @@ function Returnsu() {
                         </td>
 
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.dateOfReturn}
+                          {row.formatted_dateOfReturn}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.returnBy}

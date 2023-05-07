@@ -13,17 +13,29 @@ function Outwardsu() {
     "delivery date",
   ];
 
+  const getOutwards = async () => {
+    try {
+      const url = "http://localhost:8085/api/transactions/item-type/2";
+      const res = await fetch(url);
+      const resData = await res.json();
+      const formattedData = resData.map((item) => {
+        const date = new Date(item.dateOfDel);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        const formattedDate = `${day} ${month} ${year}`;
+        return {
+          ...item,
+          formatted_dateOfDel: formattedDate,
+        };
+      });
+      setData(formattedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getOutwards = async () => {
-      try {
-        const url = "http://localhost:8085/api/transactions/item-type/2";
-        const res = await fetch(url);
-        const resData = await res.json();
-        setData(resData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getOutwards();
   }, []);
 
@@ -131,7 +143,7 @@ function Outwardsu() {
                           {row.deliveredTo}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.dateOfDel}
+                          {row.formatted_dateOfDel}
                         </td>
                         {/* <td onClick={handleEdit} class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 text-gray-700">

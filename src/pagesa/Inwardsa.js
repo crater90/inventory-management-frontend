@@ -74,7 +74,18 @@ function Inwardsa() {
       const url = "http://localhost:8085/api/transactions/item-type/1";
       const res = await fetch(url);
       const resData = await res.json();
-      setData(resData);
+      const formattedData = resData.map((item) => {
+        const date = new Date(item.dateOfSupply);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        const formattedDate = `${day} ${month} ${year}`;
+        return {
+          ...item,
+          formatted_dateOfSupply: formattedDate,
+        };
+      });
+      setData(formattedData);
     } catch (error) {
       console.log(error);
     }
@@ -227,7 +238,7 @@ function Inwardsa() {
                           {row.billValue}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.dateOfSupply}
+                          {row.formatted_dateOfSupply}
                         </td>
 
                         {/* <td class="px-4 py-2">
