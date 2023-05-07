@@ -11,12 +11,14 @@ import Returns from './pages/Returns';
 import Reports from './pages/Report';
 import Updates from "./pages/Updates";
 import Features from "./pages/Features";
+import Register from './pages/Register';
 
 function App() {
   
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       {/* <Route path='/godowns' element={<Godowns />}>
         <Route path='/add' element={<Create />} />
         <Route path='/:id' element={<Read />} />
