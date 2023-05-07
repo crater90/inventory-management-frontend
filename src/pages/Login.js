@@ -120,6 +120,15 @@ function Login() {
               >
                 Sign in
               </button>
+              <div className="text-sm text-center mt-4">
+                Don't have an account?{" "}
+                <a
+                  href="/register"
+                  className="text-primary-600 hover:underline"
+                >
+                  Register
+                </a>
+              </div>
             </form>
           </div>
         </div>
@@ -127,5 +136,4 @@ function Login() {
     </section>
   );
 }
-
 export default Login;
