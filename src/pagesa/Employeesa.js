@@ -1,59 +1,59 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../components/Modal";
-import Layout from "../components/Layout";
+import Layouta from "../componentsa/Layouta";
 
-function Employees() {
+function Employeesa() {
   const columns_name = ["id", "username", "type", "email", "phone"];
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
-  const modal_data = {
-    name: "Employee",
-    fields: [
-      {
-        label: "name",
-        type: "text",
-        placeholder: "John Carter",
-        req: true,
-      },
-      {
-        label: "userName",
-        type: "text",
-        placeholder: "john109",
-        req: true,
-      },
-      {
-        label: "email",
-        type: "text",
-        placeholder: "John007@gmail.com",
-        req: true,
-      },
-      {
-        label: "password",
-        type: "password",
-        placeholder: "••••••••",
-        req: true,
-      },
-      {
-        label: "phoneNo",
-        type: "text",
-        placeholder: "9218381309",
-        req: true,
-      },
-      {
-        label: "type",
-        type: "select",
-        options: [
-          { value: "0", label: "SuperAdmin" },
-          { value: "1", label: "Admin" },
-          { value: "2", label: "Employee" },
-        ],
-        placeholder: "0 for superadmin, 1 for admin, 2 for employee",
-        req: true,
-      },
-    ],
-  };
+  // const modal_data = {
+  //   name: "Employee",
+  //   fields: [
+  //     {
+  //       label: "name",
+  //       type: "text",
+  //       placeholder: "John Carter",
+  //       req: true,
+  //     },
+  //     {
+  //       label: "userName",
+  //       type: "text",
+  //       placeholder: "john109",
+  //       req: true,
+  //     },
+  //     {
+  //       label: "email",
+  //       type: "text",
+  //       placeholder: "John007@gmail.com",
+  //       req: true,
+  //     },
+  //     {
+  //       label: "password",
+  //       type: "password",
+  //       placeholder: "••••••••",
+  //       req: true,
+  //     },
+  //     {
+  //       label: "phoneNo",
+  //       type: "text",
+  //       placeholder: "9218381309",
+  //       req: true,
+  //     },
+  //     {
+  //       label: "type",
+  //       type: "select",
+  //       options: [
+  //         { value: "0", label: "SuperAdmin" },
+  //         { value: "1", label: "Admin" },
+  //         { value: "2", label: "Employee" },
+  //       ],
+  //       placeholder: "0 for superadmin, 1 for admin, 2 for employee",
+  //       req: true,
+  //     },
+  //   ],
+  // };
 
   const getEmployees = async () => {
     try {
@@ -91,16 +91,16 @@ function Employees() {
   };
 
   return (
-    <Layout>
+    <Layouta>
       <main className="bg-gray-50 py-3 sm:py-5">
         <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
-          <Modal
+          {/* <Modal
             modal={modal}
             setModal={setModal}
             modal_data={modal_data}
             modalData={modalData}
             setModalData={setModalData}
-          />
+          /> */}
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div class="flex items-center flex-1 space-x-4">
@@ -137,7 +137,7 @@ function Employees() {
                   </div>
                 </form>
               </div>
-              <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+              {/* <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                 <button
                   onClick={() => setModal(true)}
                   type="button"
@@ -159,7 +159,7 @@ function Employees() {
                   </svg>
                   Add
                 </button>
-              </div>
+              </div> */}
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-sm text-left text-gray-500">
@@ -223,7 +223,7 @@ function Employees() {
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.phoneNo}
                         </td>
-                        <td
+                        {/* <td
                           onClick={() => openEditModal(row.id)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                         >
@@ -260,7 +260,7 @@ function Employees() {
                               d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                             />
                           </svg>
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })}
@@ -311,8 +311,8 @@ function Employees() {
           </div>
         </div>
       </main>
-    </Layout>
+    </Layouta>
   );
 }
 
-export default Employees;
+export default Employeesa;

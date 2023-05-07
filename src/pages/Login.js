@@ -35,6 +35,8 @@ function Login() {
         if (data === 0) {
           navigate("/");
         } else if (data === 1) {
+          navigate("/a");
+        } else if (data === 2) {
           navigate("/u");
         } else {
           console.error("Unexpected API response:", data);

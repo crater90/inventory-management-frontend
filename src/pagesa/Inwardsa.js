@@ -1,63 +1,77 @@
 import React, { useEffect, useState } from "react";
+import Layouta from "../componentsa/Layouta";
 import Modal from "../components/Modal";
-import Layout from "../components/Layout";
 
-function Employees() {
-  const columns_name = ["id", "username", "type", "email", "phone"];
+function Inwardsa() {
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const columns_name = [
+    "id",
+    "product",
+    "supplier",
+    "quantity",
+    "bill value",
+    "supply date",
+    "checked by",
+  ];
 
   const modal_data = {
-    name: "Employee",
+    name: "Inward",
     fields: [
       {
-        label: "name",
+        label: "itemName",
         type: "text",
-        placeholder: "John Carter",
+        placeholder: "dell XPS",
         req: true,
       },
       {
-        label: "userName",
+        label: "supplierName",
         type: "text",
-        placeholder: "john109",
+        placeholder: "Anith",
         req: true,
       },
       {
-        label: "email",
+        label: "dateOfSupply",
+        type: "date",
+        req: true,
+      },
+      {
+        label: "invoiceNo",
         type: "text",
-        placeholder: "John007@gmail.com",
+        placeholder: "0076",
         req: true,
       },
       {
-        label: "password",
-        type: "password",
-        placeholder: "••••••••",
-        req: true,
-      },
-      {
-        label: "phoneNo",
+        label: "quantity",
         type: "text",
-        placeholder: "9218381309",
+        placeholder: "17",
         req: true,
       },
       {
-        label: "type",
-        type: "select",
-        options: [
-          { value: "0", label: "SuperAdmin" },
-          { value: "1", label: "Admin" },
-          { value: "2", label: "Employee" },
-        ],
-        placeholder: "0 for superadmin, 1 for admin, 2 for employee",
+        label: "checkedBy",
+        type: "text",
+        placeholder: "kamran",
+        req: true,
+      },
+      {
+        label: "itemType",
+        type: "text",
+        placeholder: "please write 1",
+        req: true,
+      },
+      {
+        label: "billValue",
+        type: "text",
+        placeholder: "4999",
         req: true,
       },
     ],
   };
 
-  const getEmployees = async () => {
+  const getInwards = async () => {
     try {
-      const url = "http://localhost:8085/api/employees";
+      const url = "http://localhost:8085/api/transactions/item-type/1";
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -67,31 +81,33 @@ function Employees() {
   };
 
   useEffect(() => {
-    getEmployees();
+    getInwards();
   }, [modal]);
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://localhost:8085/api/employees/${id}`;
+      const url = `http://localhost:8085/api/transactions/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
       console.log(res);
-      getEmployees();
+      getInwards();
+      //const resData = await res.json();
+      //console.log(resData);
     } catch (error) {
       console.log(error);
     }
   };
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.id === id);
+    const edit_obj = data.filter((item) => item.transaction_Id === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
     setModal(!modal);
   };
 
   return (
-    <Layout>
+    <Layouta>
       <main className="bg-gray-50 py-3 sm:py-5">
         <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
           <Modal
@@ -104,7 +120,7 @@ function Employees() {
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div class="flex items-center flex-1 space-x-4">
-                <h5 className="text-gray-500 font-bold mb-0">Employees</h5>
+                <h5 className="text-gray-500 font-bold mb-0">Inwards</h5>
               </div>
               <div class="w-full md:w-1/2">
                 <form class="flex items-center">
@@ -173,7 +189,7 @@ function Employees() {
                     </th> */}
                     {columns_name.map((column) => {
                       return (
-                        <th scope="col" class="px-4 py-3">
+                        <th scope="col" class="px-4 py-3 whitespace-nowrap">
                           {column}
                         </th>
                       );
@@ -196,35 +212,32 @@ function Employees() {
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.id}
+                          {row.transactionId}
                         </th>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.userName}
+                          {row.itemName}
                         </td>
-                        <td class="px-4 py-2">
-                          {row.type === 0 ? (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              Sadmin
-                            </span>
-                          ) : row.type === 1 ? (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              admin
-                            </span>
-                          ) : (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              employee
-                            </span>
-                          )}
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                          {row.supplierName}
+                        </td>
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                          {row.quantity}
+                        </td>
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                          {row.billValue}
+                        </td>
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                          {row.dateOfSupply}
                         </td>
 
+                        {/* <td class="px-4 py-2">
+                          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
+                        </td> */}
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.email}
-                        </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.phoneNo}
+                          {row.checkedBy}
                         </td>
                         <td
-                          onClick={() => openEditModal(row.id)}
+                          onClick={() => openEditModal(row.transactionId)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                         >
                           <svg
@@ -243,7 +256,7 @@ function Employees() {
                           </svg>
                         </td>
                         <td
-                          onClick={() => handleDelete(row.id)}
+                          onClick={() => handleDelete(row.transactionId)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                         >
                           <svg
@@ -267,52 +280,11 @@ function Employees() {
                 </tbody>
               </table>
             </div>
-            {/* <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0" aria-label="Table navigation">
-              <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                Showing
-                <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                of
-                <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-              </span>
-              <ul class="inline-flex items-stretch -space-x-px">
-                <li>
-                  <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Previous</span>
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                  <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Next</span>
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
           </div>
         </div>
       </main>
-    </Layout>
+    </Layouta>
   );
 }
 
-export default Employees;
+export default Inwardsa;

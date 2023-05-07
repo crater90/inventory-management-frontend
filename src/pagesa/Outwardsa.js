@@ -1,63 +1,82 @@
 import React, { useEffect, useState } from "react";
+import Layouta from "../componentsa/Layouta";
 import Modal from "../components/Modal";
-import Layout from "../components/Layout";
 
-function Employees() {
-  const columns_name = ["id", "username", "type", "email", "phone"];
+function Outwardsa() {
+  const columns_name = [
+    "id",
+    "product",
+    "quantity",
+    "bill value",
+    "delivered to",
+    "delivery date",
+  ];
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
   const modal_data = {
-    name: "Employee",
+    name: "Outward",
     fields: [
       {
-        label: "name",
+        label: "itemName",
         type: "text",
-        placeholder: "John Carter",
+        placeholder: "dell XPS",
         req: true,
       },
       {
-        label: "userName",
+        label: "supplierName",
         type: "text",
-        placeholder: "john109",
+        placeholder: "Anith",
         req: true,
       },
       {
-        label: "email",
+        label: "invoiceNo",
         type: "text",
-        placeholder: "John007@gmail.com",
+        placeholder: "0076",
         req: true,
       },
       {
-        label: "password",
-        type: "password",
-        placeholder: "••••••••",
-        req: true,
-      },
-      {
-        label: "phoneNo",
+        label: "quantity",
         type: "text",
-        placeholder: "9218381309",
+        placeholder: "17",
         req: true,
       },
       {
-        label: "type",
-        type: "select",
-        options: [
-          { value: "0", label: "SuperAdmin" },
-          { value: "1", label: "Admin" },
-          { value: "2", label: "Employee" },
-        ],
-        placeholder: "0 for superadmin, 1 for admin, 2 for employee",
+        label: "checkedBy",
+        type: "text",
+        placeholder: "kamran",
+        req: true,
+      },
+      {
+        label: "itemType",
+        type: "text",
+        placeholder: "please write 2",
+        req: true,
+      },
+      {
+        label: "billValue",
+        type: "text",
+        placeholder: "4999",
+        req: true,
+      },
+      {
+        label: "deliveredTo",
+        type: "text",
+        placeholder: "John",
+        req: true,
+      },
+      {
+        label: "dateOfDel",
+        type: "date",
         req: true,
       },
     ],
   };
 
-  const getEmployees = async () => {
+  const getOutwards = async () => {
     try {
-      const url = "http://localhost:8085/api/employees";
+      const url = "http://localhost:8085/api/transactions/item-type/2";
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -67,31 +86,33 @@ function Employees() {
   };
 
   useEffect(() => {
-    getEmployees();
+    getOutwards();
   }, [modal]);
 
   const handleDelete = async (id) => {
     try {
-      const url = `http://localhost:8085/api/employees/${id}`;
+      const url = `http://localhost:8085/api/transactions/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
       console.log(res);
-      getEmployees();
+      getOutwards();
+      //const resData = await res.json();
+      //console.log(resData);
     } catch (error) {
       console.log(error);
     }
   };
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.id === id);
+    const edit_obj = data.filter((item) => item.transaction_Id === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
     setModal(!modal);
   };
 
   return (
-    <Layout>
+    <Layouta>
       <main className="bg-gray-50 py-3 sm:py-5">
         <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
           <Modal
@@ -104,7 +125,7 @@ function Employees() {
           <div class="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md">
             <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div class="flex items-center flex-1 space-x-4">
-                <h5 className="text-gray-500 font-bold mb-0">Employees</h5>
+                <h5 className="text-gray-500 font-bold mb-0">Outwards</h5>
               </div>
               <div class="w-full md:w-1/2">
                 <form class="flex items-center">
@@ -196,35 +217,29 @@ function Employees() {
                           scope="row"
                           class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap"
                         >
-                          {row.id}
+                          {row.transactionId}
                         </th>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          {row.userName}
+                          {row.itemName}
                         </td>
-                        <td class="px-4 py-2">
-                          {row.type === 0 ? (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              Sadmin
-                            </span>
-                          ) : row.type === 1 ? (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              admin
-                            </span>
-                          ) : (
-                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">
-                              employee
-                            </span>
-                          )}
+                        {/* <td class="px-4 py-2">
+                          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
+                        </td> */}
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                          {row.quantity}
+                        </td>
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                          {row.billValue}
                         </td>
 
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.email}
+                          {row.deliveredTo}
                         </td>
                         <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {row.phoneNo}
+                          {row.dateOfDel}
                         </td>
                         <td
-                          onClick={() => openEditModal(row.id)}
+                          onClick={() => openEditModal(row.transaction_Id)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                         >
                           <svg
@@ -243,7 +258,7 @@ function Employees() {
                           </svg>
                         </td>
                         <td
-                          onClick={() => handleDelete(row.id)}
+                          onClick={() => handleDelete(row.transaction_Id)}
                           class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer"
                         >
                           <svg
@@ -311,8 +326,8 @@ function Employees() {
           </div>
         </div>
       </main>
-    </Layout>
+    </Layouta>
   );
 }
 
-export default Employees;
+export default Outwardsa;
