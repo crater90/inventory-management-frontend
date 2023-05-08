@@ -12,6 +12,8 @@ import Reports from './pages/Report';
 import Updates from "./pages/Updates";
 import Features from "./pages/Features";
 import Register from './pages/Register';
+import Unauthorized from './pages/Unauthorized';
+import Stocks from './pages/Stocks';
 
 function App() {
   
@@ -31,10 +33,12 @@ function App() {
         <Route path='/inwards' element={<Inwards />} />
         <Route path='/outwards' element={<Outwards />} />
         <Route path='/returns' element={<Returns />} />
+        <Route path='/stocks' element={<Stocks />} />
         <Route path="/reports" element={<Reports />}></Route>
         <Route path="/updates" element={<Updates />}></Route>
         <Route path="/features" element={<Features />}></Route>
       </Route>
+      <Route path="/unauthorized" element={<Unauthorized/>} />
       <Route path="*" element={<div>Not found...</div>} />
     </Routes >
   );

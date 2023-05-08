@@ -13,6 +13,7 @@ import {
   faChartBar,
   faUserAlt,
   faIndustry,
+  faMoneyBillTrendUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -124,6 +125,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
                 <span className="flex-1 ml-3 whitespace-nowrap">Returns</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/stocks"
+                className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faMoneyBillTrendUp} />
+                <span className="flex-1 ml-3 whitespace-nowrap ">Stocks</span>
               </Link>
             </li>
             <li>
