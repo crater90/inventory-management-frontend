@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
-import { toast } from 'react-hot-toast';
+//import { toast } from 'react-hot-toast';
 
 
 function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
@@ -32,7 +32,7 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
           break;
       }
 
-      const toastId = toast.loading(`Adding ${modal_data?.name}..`);
+      //const toastId = toast.loading(`Adding ${modal_data?.name}..`);
 
       //const url = modal_data?.name === "Employee" ? 'http://10.25.240.191:8085/api/employees' : 'http://10.25.240.191:8085/api/godowns';
       const res = await fetch(url, {
@@ -49,6 +49,12 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
     }
 
   };
+
+  // toast.promise(onSubmitAdd, {
+  //   loading: "Adding...",
+  //   success: "Added data Successfully",
+  //   error: "Something went wrong !"
+  // })
 
   const onSubmitEdit = async (data) => {
     console.log("edit api");
@@ -90,12 +96,21 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 
   };
 
+  // toast.promise(onSubmitEdit, {
+  //   loading: "Editing...",
+  //   success: "Edited data Successfully",
+  //   error: "Something went Wrong !"
+  // })
+
   const handleCloseModal = (e) => {
     e.preventDefault();
     setModalData(null);
     setModal(!modal);
   }
 
+  const formatCase = (str) => {
+    return str.split("_").join(" ");
+  }
   return (
     <div className={`${modal ? 'block' : 'hidden'} overflow-y-auto bg-gray-300/90 overflow-x-hidden fixed z-50 justify-center items-center w-full h-full md:inset-0 md:h-full`}>
       <div className="relative p-4 w-full max-w-2xl mx-auto h-full md:h-auto">
@@ -174,7 +189,7 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
                 {modal_data?.fields?.map(field => {
                   return (
                     <div key={field.label}>
-                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{field.label}</label>
+                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{formatCase(field.label)}</label>
                       <input 
                         type={field.type} 
                         name={field.label} 
