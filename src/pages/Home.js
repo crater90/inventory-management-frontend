@@ -9,7 +9,7 @@ function Home() {
           <div className="p-4">
             <div className="text-center mb-8">
               <h1 className="text-5xl font-bold text-blue-950">
-                Welcome to the SIM
+                Welcome to the SIMS
               </h1>
             </div>
             <div className="flex items-center justify-center h-48 mb-8 rounded bg-gray-50">

@@ -1,13 +1,12 @@
+import React from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import React, { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import useAuth from "../hooks/useAuth"
 
-export default function CheckAuth() {
-	//let auth = useAuth();
+export default function CheckAuth({allowedRoles}) {
 	let location = useLocation();
-	const {isLoggedIn} = useContext(AuthContext);
+	const {isLoggedIn, roles} = useAuth();
 	console.log(isLoggedIn);
-	//if (!auth.user) {
+	
 	if (!isLoggedIn) {
 		// Redirect them to the /login page, but save the current location they were
 		// trying to go to when they were redirected. This allows us to send them
@@ -16,7 +15,11 @@ export default function CheckAuth() {
 		return <Navigate to="/login" state={{ from: location }} replace />;
 	}
 
-	return <Outlet />;
+	if(roles?.find(role => allowedRoles?.includes(role)) === undefined) {
+		return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+	}
+
+	return <Outlet/>
 }
 
 

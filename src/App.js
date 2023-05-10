@@ -14,32 +14,39 @@ import Features from "./pages/Features";
 import Register from './pages/Register';
 import Unauthorized from './pages/Unauthorized';
 import Stocks from './pages/Stocks';
+import NotFound from './components/NotFound';
 
 function App() {
-  
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      {/* <Route path='/godowns' element={<Godowns />}>
-        <Route path='/add' element={<Create />} />
-        <Route path='/:id' element={<Read />} />
-        <Route path='/delete/' element={<Delete />} />
-      </Route> */}
-      <Route element={<CheckAuth />}>
-        <Route path="/" element={<Home />} />
+
+      {/* only super admins can see this */}
+      <Route element={<CheckAuth allowedRoles={[0]} />}>
+        <Route path="/reports" element={<Reports />} />
+      </Route>
+
+      {/* admins and super admins can see this */}
+      <Route element={<CheckAuth allowedRoles={[0, 1]} />}>
         <Route path='/godowns' element={<Godowns />} />
         <Route path='/employees' element={<Employees />} />
+      </Route>
+
+      {/* admins, super admins and employees see this */}
+      <Route element={<CheckAuth allowedRoles={[0, 1, 2]} />}>
+        <Route path="/" element={<Home />} />
         <Route path='/inwards' element={<Inwards />} />
         <Route path='/outwards' element={<Outwards />} />
         <Route path='/returns' element={<Returns />} />
         <Route path='/stocks' element={<Stocks />} />
-        <Route path="/reports" element={<Reports />}></Route>
-        <Route path="/updates" element={<Updates />}></Route>
-        <Route path="/features" element={<Features />}></Route>
+        <Route path="/updates" element={<Updates />} />
+        <Route path="/features" element={<Features />} />
       </Route>
-      <Route path="/unauthorized" element={<Unauthorized/>} />
-      <Route path="*" element={<div>Not found...</div>} />
+      
+      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="*" element={<NotFound/>} />
     </Routes >
   );
 }
