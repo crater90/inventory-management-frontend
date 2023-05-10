@@ -79,7 +79,7 @@ function Inwards() {
         const day = date.getDate().toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear().toString();
-        const formattedDate = `${day} ${month} ${year}`;
+        const formattedDate = `${day}-${month}-${year}`;
         return {
           ...item,
           formatted_dateOfSupply: formattedDate,
@@ -111,7 +111,7 @@ function Inwards() {
   };
 
   const openEditModal = (id) => {
-    const edit_obj = data.filter((item) => item.transaction_Id === id);
+    const edit_obj = data.filter((item) => item.transactionId === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
     setModal(!modal);

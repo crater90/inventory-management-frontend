@@ -13,6 +13,9 @@ function Godowns() {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const [searchInput, setSearchInput] = useState("");
 
   const modal_data = {
     name: "Godown",
@@ -59,7 +62,7 @@ function Godowns() {
         const day = date.getDate().toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear().toString();
-        const formattedDate = `${day} ${month} ${year}`;
+        const formattedDate = `${day}-${month}-${year}`;
         return {
           ...item,
           formatted_start_date: formattedDate,
@@ -89,6 +92,17 @@ function Godowns() {
       console.log(error);
     }
   };
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    setSearch(searchInput);
+
+    setData(
+      data.filter((item) =>
+        item.godownName.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  };
 
   const openEditModal = (id) => {
     const edit_obj = data.filter((item) => item.godown_Id === id);
@@ -114,30 +128,37 @@ function Godowns() {
                 <h5 className="text-gray-500 font-bold mb-0">Godowns</h5>
               </div>
               <div class="w-full md:w-1/2">
-                <form class="flex items-center">
-                  <label for="simple-search" class="sr-only">
+                <form onSubmit={handleSearch} className="flex items-center">
+                  <label htmlFor="simple-search" className="sr-only">
                     Search
                   </label>
-                  <div class="relative w-full">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+                  <div className="relative w-full">
+                    <button
+                      type="submit"
+                      className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                    >
                       <svg
                         aria-hidden="true"
-                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
                         fill="currentColor"
-                        viewbox="0 0 20 20"
+                        viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
-                    </div>
+                    </button>
+
                     <input
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
                       type="text"
                       id="simple-search"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2"
                       placeholder="Search"
                       required=""
                     />
