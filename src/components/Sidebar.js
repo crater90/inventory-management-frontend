@@ -16,6 +16,7 @@ import {
   faMoneyBill,
 } from "@fortawesome/free-solid-svg-icons";
 
+
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const username = "User01";
   const firstChar = username.charAt(0).toUpperCase();
