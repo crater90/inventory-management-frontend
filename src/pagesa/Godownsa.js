@@ -13,6 +13,7 @@ function Godowns() {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   // const modal_data = {
   //   name: "Godown",
@@ -96,6 +97,17 @@ function Godowns() {
     console.log(modalData);
     setModal(!modal);
   };
+  const handleSort = () => {
+    const sortedData = [...data].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.godownName.localeCompare(b.godownName);
+      } else {
+        return b.godownName.localeCompare(a.godownName);
+      }
+    });
+    setData(sortedData);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
 
   return (
     <Layouta>
@@ -143,6 +155,15 @@ function Godowns() {
                     />
                   </div>
                 </form>
+              </div>
+              <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                <button
+                  onClick={handleSort}
+                  type="button"
+                  class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none text-center"
+                >
+                  Sort
+                </button>
               </div>
               {/* <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                 <button
