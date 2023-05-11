@@ -48,15 +48,20 @@ const Assistance = () => {
         {
           id: 'help',
           options: [
-            { value: 'holiday', label: 'Holiday', trigger: 'holiday' },
+            { value: 'Business hours', label: 'Business hours', trigger: 'business hours' },
             { value: 'get-info', label: 'Get information', trigger: 'get-info' },
-            { value: 'other', label: 'Other', trigger: 'other' },
+            { value: 'contact', label: 'contact', trigger: 'contact' },
           ],
         },
         {
-          id: 'holiday',
-          message: 'closed on sunday',
-          trigger: 'issue-summary',
+          id: 'business hours',
+          message: 'Our business hours are Monday-Friday, 9am-5pm',
+          trigger: 'help',
+        },
+        {
+          id: 'contact',
+          message: 'simsupport@gmail.com',
+          trigger: 'help',
         },
         {
           id: 'issue-description',
@@ -65,7 +70,7 @@ const Assistance = () => {
         },
         {
           id: 'issue-summary',
-          message: 'Thank you for contacting us. If u have any more queries feel free to reach out at simssupport@gmail.com',
+          message: 'Thank you for contacting us. For more queries feel free to reach out  simsupport@gmail.com',
           trigger: 'help',
         },
         // {
@@ -86,36 +91,88 @@ const Assistance = () => {
         {
           id: 'info-type',
           options: [
-            { value: 'hours', label: 'Business hours', trigger: 'business-hours' },
-            { value: 'location', label: 'Location', trigger: 'location' },
-            { value: 'contact', label: 'Contact information', trigger: 'contact' },
+            { value: 'Godown', label: 'Godown', trigger: 'godown' },
+            { value: 'Employee', label: 'Employee', trigger: 'employee' },
+            { value: 'other', label: 'other', trigger: 'other' },
           ],
         },
         {
-          id: 'business-hours',
-          message: 'Our business hours are Monday-Friday, 9am-5pm.',
-          trigger: 'done',
+          id: 'godown',
+          message: 'what information would u like to know from godown',
+          trigger: 'godown-info',
         },
         {
-          id: 'location',
-          message: 'We are located at 123 Main St, Anytown, USA.',
-          trigger: 'done',
+          id:'godown-info',
+          options:[
+            {value:'godownlocations', label:'Godown Locations', trigger:'godownlocations'},
+            {value:'items', label:'Items', trigger:'items'},
+          ]
+           
         },
         {
-          id: 'contact',
-          message: 'You can reach us at simssupport@gmail.com',
+          id:'godownlocations',
+          message: 'chennai, Gurugrum, Noida , pune',
+          trigger:'help'
+
+        },
+        {
+          id:'items',
+          message: 'laptop, headsets , speakers',
+          trigger:'help'
+
+        },
+        // {
+        //   id:'location-manager',
+        //   message: 'chennai-sebastian, Gurugrum-Ashtosh, Noida-Vicky , pune-selva',
+        //   trigger:'done'
+
+        // },
+        {
+          id: 'employee',
+          message: 'John',
           trigger: 'done',
         },
         {
           id: 'other',
-          message: 'Sorry, I am not programmed to handle that request. Please try something else.',
-          trigger: 'help',
+          message: 'You can reach out us at simssupport@gmail.com',
+          trigger: 'done',
         },
+        // {
+        //   id: 'other',
+        //   message: 'Sorry, I am not programmed to handle that request. Please try something else.',
+        //   trigger: 'help',
+        // },
         {
           id: 'done',
           message: 'Is there anything else I can help you with?',
-          trigger: 'help',
+          trigger: 'ending',
         },
+        // {
+        //   id: 'end-chat',
+        //   user:true,
+        //   trigger: 'ending',
+        // },
+        {
+          id: 'ending',
+          options:[
+            {value:'yes', label:'Yes', trigger:'yes'},
+            {value:'no', label:'No', trigger:'no'},
+          ],
+          trigger:'done2'
+
+        },
+        {
+          id:'yes',
+          message:'how can i help you',
+          trigger:'help'
+        },
+
+        {
+          id:'no',
+          message:'Have a good day ! Bye',
+          
+        }
+
 
       ];
     
