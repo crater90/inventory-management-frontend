@@ -108,25 +108,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <ul className="space-y-2 font-medium px-3 pt-2">
             <li>
               <Link
-                to="/godownsa"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faWarehouse} />
-                <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/employeesa"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUsers} />
-                <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/inwardsa"
+                to="/inwards"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faBoxes} />
@@ -135,25 +117,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/outwardsa"
+                to="/outwards"
                 className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faTruck} />
                 <span className="flex-1 ml-3 whitespace-nowrap">Outwards</span>
               </Link>
             </li>
-            {/* <li>
-              <Link
-                to="/employees"
-                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUserAlt} />
-                <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
-              </Link>
-            </li> */}
             <li>
               <Link
-                to="/returnsa"
+                to="/returns"
                 class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faExchangeAlt} />
@@ -162,11 +135,30 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </li>
             <li>
               <Link
-                to="/reportsa"
+                to="/reports"
                 className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
               >
                 <FontAwesomeIcon icon={faChartBar} />
                 <span class="flex-1 ml-3 whitespace-nowrap ">Report</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/godowns"
+                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faWarehouse} />
+                <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/employees"
+                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faUsers} />
+                <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
               </Link>
             </li>
           </ul>
