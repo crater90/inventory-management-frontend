@@ -10,7 +10,7 @@ function Employees() {
   const [searchInput, setSearchInput] = useState("");
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
-  const [x, setX] = useState([]);
+  
 
   const getEmployees = async () => {
     try {

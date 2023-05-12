@@ -76,10 +76,10 @@ function Inwards() {
     }
 
 
-console.log("CSv",csvReport)
+// console.log("CSv",csvReport)
   const getInwards = async () => {
     try {
-      const url = `https://inventory-management-backend-tmvs.onrender.com/api/inwards`;
+      const url = `localhost:8085/api/transactions/item-type/1`;
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);

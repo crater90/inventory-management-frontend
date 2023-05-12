@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { toast } from 'react-hot-toast';
+import { CSVLink } from 'react-csv';
 
 function Outwards() {
 
   const columns_name = ["id", "product", "quantity", "bill value", "delivered to", "delivery date"];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
@@ -56,22 +57,31 @@ function Outwards() {
         req: true,
       },
       {
-        label: "delivered_to",
+        label: "delivered to",
         type: "text",
         placeholder: "John",
         req: true,
       },
       {
-        label: "date_of_del",
+        label: "delivered date",
         type: "date",
         req: true,
       },
     ]
   }
 
+
+  const csvReport={
+    filename:'Outwards.csv',
+    headers:modal_data.fields.map(field => field.label),
+    data:data
+    
+  }
+
   const getOutwards = async () => {
     try {
-      const url = `${process.env.REACT_APP_API_URL}/api/transactions/item-type/2`;
+      // const url = `${process.env.REACT_APP_API_URL}/api/transactions/item-type/2`;
+      const url=`localhost:8085/api/transactions/item-type/2`
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -136,6 +146,7 @@ function Outwards() {
                   </svg>
                   Add
                 </button>
+                <CSVLink {...csvReport}>Export Data</CSVLink>
               </div>
             </div>
             <div className="overflow-x-auto">
