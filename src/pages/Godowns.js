@@ -12,7 +12,7 @@ function Godowns() {
   const [modalData, setModalData] = useState(null);
   //maintaing search query input
   const [searchInput, setSearchInput] = useState("");
-  const columns = ["name", "location", "capacity", "manager", "start date"]
+  const columns = ["name", "location", "storage left", "manager", "start date"]
 
   const modal_data = {
     name: "Godown",
@@ -103,6 +103,11 @@ function Godowns() {
     }
   }
 
+  const calculateStorage = (remaining, occupied) => {
+    let result = remaining/ (remaining + occupied) * 100
+    return `${result.toFixed(2)} %`;
+  }
+
   return (
     <Layout>
       <section className="py-3 sm:py-5">
@@ -147,7 +152,7 @@ function Godowns() {
 										</th> */}
                     {columns.map(column => {
                       return (
-                        <th key={column} scope="col" className="px-4 py-3">{column}</th>
+                        <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
                       )
                     })}
                     <th scope="col" className="px-2 py-3"></th>
@@ -170,7 +175,7 @@ function Godowns() {
                         <td className="px-4 py-2">
                           <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.location}</span>
                         </td>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.capacity}</td>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{calculateStorage(row.capacity, row.quantity)}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.manager}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.start_date}</td>
                         <td onClick={() => openEditModal(row.godown_Id)} className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">

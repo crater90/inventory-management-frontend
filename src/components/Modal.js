@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
+import { startCase } from 'lodash';
 
 function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
 
@@ -140,7 +141,7 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
                 {modal_data?.fields?.map(field => {
                   return (
                     <div key={field.label}>
-                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{field.label}</label>
+                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{startCase(field.label)}</label>
                       {field.select ? (
                         <select id={field.label} {...register(field.label, { required: `${field.label} is required` })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                           <option value="">Select category</option>
@@ -192,7 +193,7 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
                 {modal_data?.fields?.map(field => {
                   return (
                     <div key={field.label}>
-                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{formatCase(field.label)}</label>
+                      <label htmlFor={field.label} className="block mb-2 text-sm font-medium text-gray-900 capitalize">{startCase(field.label)}</label>
                       {field.select ? (
                         <select id={field.label} {...register(field.label, { required: `${field.label} is required` })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                           <option value="">Select category</option>

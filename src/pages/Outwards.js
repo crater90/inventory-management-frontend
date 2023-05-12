@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 function Outwards() {
 
-  const columns_name = ["id", "product", "quantity", "bill value", "delivered to", "delivery date"];
+  const columns_name = ["id", "godown name", "product", "quantity", "bill value", "delivered to", "delivery date"];
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -14,19 +14,25 @@ function Outwards() {
     name: "Outward",
     fields: [
       {
-        label: "item_name",
+				label: "godownName",
+				type: "text",
+				placeholder: "godown B",
+				req: true,
+			},
+      {
+        label: "itemName",
         type: "text",
         placeholder: "dell XPS",
         req: true,
       },
       {
-        label: "supplier_name",
+        label: "supplierName",
         type: "text",
         placeholder: "Anith",
         req: true,
       },
       {
-        label: "invoice_no",
+        label: "invoiceNo",
         type: "text",
         placeholder: "0076",
         req: true,
@@ -38,31 +44,31 @@ function Outwards() {
         req: true,
       },
       {
-        label: "checked_by",
+        label: "checkedBy",
         type: "text",
         placeholder: "kamran",
         req: true,
       },
       {
-        label: "item_type",
+        label: "itemType",
         type: "text",
         placeholder: "please write 2",
         req: true,
       },
       {
-        label: "bill_value",
+        label: "billValue",
         type: "text",
         placeholder: "4999",
         req: true,
       },
       {
-        label: "delivered_to",
+        label: "deliveredTo",
         type: "text",
         placeholder: "John",
         req: true,
       },
       {
-        label: "date_of_del",
+        label: "dateOfDel",
         type: "date",
         req: true,
       },
@@ -150,7 +156,7 @@ function Outwards() {
                     </th> */}
                     {columns_name.map(column => {
                       return (
-                        <th key={column} scope="col" className="px-4 py-3">{column}</th>
+                        <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
                       )
                     })}
                     <th scope="col" className="px-2 py-3"></th>
@@ -170,6 +176,7 @@ function Outwards() {
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.transactionId}
                         </th>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.godownName}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.itemName}</td>
                         {/* <td className="px-4 py-2">
                           <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>

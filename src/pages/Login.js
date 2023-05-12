@@ -37,7 +37,6 @@ function Login() {
         body: JSON.stringify(credentials)
       })
       const resData = await res.json();
-      console.log(resData);
       if(resData.status === 500) {
         toast.error('Invalid credentials', {
           id: toastId

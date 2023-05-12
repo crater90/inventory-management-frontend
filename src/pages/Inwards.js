@@ -7,30 +7,36 @@ function Inwards() {
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
 	const [modalData, setModalData] = useState(null);
-  const columns_name = ["id", "product", "supplier", "quantity", "bill value", "supply date","checked by"];
+  const columns_name = ["id", "godown name", "product", "supplier", "quantity", "bill value", "supply date","checked by"];
 
   const modal_data = {
 		name: "Inward",
 		fields: [
+      {
+				label: "godownName",
+				type: "text",
+				placeholder: "godown B",
+				req: true,
+			},
 			{
-				label: "item_name",
+				label: "itemName",
 				type: "text",
 				placeholder: "dell XPS",
 				req: true,
 			},
 			{
-				label: "supplier_name",
+				label: "supplierName",
 				type: "text",
 				placeholder: "Anith",
 				req: true,
 			},
 			{
-				label: "date_of_supply",
+				label: "dateOfSupply",
 				type: "date",
 				req: true,
 			},
 			{
-				label: "invoice_no",
+				label: "invoiceNo",
 				type: "text",
         placeholder: "0076",
 				req: true,
@@ -42,19 +48,19 @@ function Inwards() {
 				req: true,
 			},
       {
-				label: "checked_by",
+				label: "checkedBy",
 				type: "text",
         placeholder: "kamran",
 				req: true,
 			},
       {
-				label: "item_type",
+				label: "itemType",
 				type: "text",
         placeholder: "please write 1",
 				req: true,
 			},
       {
-				label: "bill_value",
+				label: "billValue",
 				type: "text",
         placeholder: "4999",
 				req: true,
@@ -163,6 +169,7 @@ function Inwards() {
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.transactionId}
                         </th>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.godownName}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.itemName}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.supplierName}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.quantity}</td>
