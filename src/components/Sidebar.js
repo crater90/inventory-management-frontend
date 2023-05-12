@@ -14,6 +14,7 @@ import {
   faUserAlt,
   faMoneyBillTrendUp,
   faMoneyBill,
+  faPieChart,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -169,6 +170,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 <FontAwesomeIcon icon={faChartBar} />
                 <span class="flex-1 ml-3 whitespace-nowrap ">Report</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/reports1"
+                className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faPieChart} />
+                <span class="flex-1 ml-3 whitespace-nowrap ">Analytics</span>
               </Link>
             </li>
             <li>
