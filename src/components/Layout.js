@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Assistant from './Assistant';
 
 function Layout({ children }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -11,6 +12,7 @@ function Layout({ children }) {
 			<div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
 				<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 				<main>{children}</main>
+				<Assistant/>
 			</div>
 		</div>
 	)

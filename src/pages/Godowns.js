@@ -110,6 +110,14 @@ function Godowns() {
     return `${result.toFixed(2)} %`;
   }
 
+  const formatDate = (oldDate) => {
+    const date = new Date(oldDate);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <Layout>
       <section className="py-3 sm:py-5">
@@ -185,7 +193,7 @@ function Godowns() {
                         </td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{calculateStorage(row.capacity, row.quantity)}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.manager}</td>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.start_date}</td>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{formatDate(row.start_date)}</td>
                         {userDetails.type === 0 && (
                           <>
                             <td onClick={() => openEditModal(row.godown_Id)} className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">

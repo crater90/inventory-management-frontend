@@ -3,10 +3,11 @@ import Modal from '../components/Modal'
 import Layout from '../components/Layout'
 import { toast } from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
+import { CSVLink } from "react-csv";
 
 function Employees() {
   const columns_name = ["id", "username", "type", "email", "phone"];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -54,6 +55,13 @@ function Employees() {
       }
     ]
   }
+
+  const csvReport = {
+    filename: "Report.csv",
+    headers: modal_data.fields.map((field) => field.label),
+    data: data,
+
+  };
 
   const getEmployees = async () => {
     try {
@@ -149,7 +157,7 @@ function Employees() {
                   </div>
                 </form>
               </div>
-              {userDetails.type === 0 && (
+              {(userDetails.type === 0 || userDetails.type === 1) && (
                 <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                   <button onClick={() => setModal(true)} type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
@@ -157,6 +165,7 @@ function Employees() {
                     </svg>
                     Add
                   </button>
+                  <CSVLink className='flex items-center no-underline justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700' {...csvReport}>Export Data</CSVLink>
                 </div>
               )}
 
