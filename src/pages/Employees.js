@@ -6,10 +6,26 @@ import { CSVLink } from 'react-csv';
 
 function Employees() {
   const columns_name = ["id", "username", "type", "email", "phone"];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [x, setX] = useState([]);
+
+  const getEmployees = async () => {
+    try {
+      const url = `https://inventory-management-backend-tmvs.onrender.com/api/employees`;
+      const res = await fetch(url);
+      const resData = await res.json();
+      setData(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getEmployees();
+  }, [modal])
 
   const modal_data = {
     name: "Employee",
@@ -54,26 +70,29 @@ function Employees() {
 
 
 
-  const employee =
-    [
-      { "id": 1, "name": "Pulkit", "userName": "pulkit1234", "email": "pulkit1234@gmail.com", "password": "pulkit123", "phoneNo": "683273231", "type": 0 },
-      { "id": 2, "name": "Shaym", "userName": "shaym71287", "email": "shaym71287@gmail.com", "password": "shaym71287", "phoneNo": "923792732", "type": 1 },
-      { "id": 102, "name": "Gagan", "userName": "gagan", "email": "gagan1234@gmail.com", "password": "gagan", "phoneNo": "683273231", "type": 0 },
-      { "id": 155, "name": "kamran121", "userName": "kamran2", "email": "811@gmail.com12", "password": "Ishi72", "phoneNo": "982734231", "type": 1 },
-      { "id": 156, "name": "kamran", "userName": "kamran", "email": "811@gmail.com12", "password": "Ishi72", "phoneNo": "982734231", "type": 1 },
-      { "id": 157, "name": "Ishi23", "userName": "Ishi", "email": "Ishi7812@gmail.com", "password": "Ishi72", "phoneNo": "9827345454", "type": 2 },
-      { "id": 402, "name": "Ranit", "userName": "ranit29", "email": "ranit@gmail.com", "password": "$2a$10$U0VBZvRdx.2SDNG.NIxLa.mnf2BHg2c0.UwOLwSXDp/WqGnKxn0rO", "phoneNo": "9436907689", "type": 1 },
-      { "id": 403, "name": "Kamran", "userName": "kamran90", "email": "kamran@gmail.com", "password": "$2a$10$aFicogZkh6lSDmAAabAeseDv1oeI9L/b3L6TMYDGQ8sAZzno90zE.", "phoneNo": "9436900089", "type": 1 },
-      { "id": 502, "name": "Naina", "userName": "Naina12_test", "email": "nain12@gmail.com", "password": "$2a$10$PixYmt.Q2U6WvN9idEFfUuGPD7h7CpEUX0c8SXruItDIZ02XF3z5i", "phoneNo": "8837061893", "type": 2 }
-    ]
+  // const employee =
+  //   [
+  //     { "id": 1, "name": "Pulkit", "userName": "pulkit1234", "email": "pulkit1234@gmail.com", "password": "pulkit123", "phoneNo": "683273231", "type": 0 },
+  //     { "id": 2, "name": "Shaym", "userName": "shaym71287", "email": "shaym71287@gmail.com", "password": "shaym71287", "phoneNo": "923792732", "type": 1 },
+  //     { "id": 102, "name": "Gagan", "userName": "gagan", "email": "gagan1234@gmail.com", "password": "gagan", "phoneNo": "683273231", "type": 0 },
+  //     { "id": 155, "name": "kamran121", "userName": "kamran2", "email": "811@gmail.com12", "password": "Ishi72", "phoneNo": "982734231", "type": 1 },
+  //     { "id": 156, "name": "kamran", "userName": "kamran", "email": "811@gmail.com12", "password": "Ishi72", "phoneNo": "982734231", "type": 1 },
+  //     { "id": 157, "name": "Ishi23", "userName": "Ishi", "email": "Ishi7812@gmail.com", "password": "Ishi72", "phoneNo": "9827345454", "type": 2 },
+  //     { "id": 402, "name": "Ranit", "userName": "ranit29", "email": "ranit@gmail.com", "password": "$2a$10$U0VBZvRdx.2SDNG.NIxLa.mnf2BHg2c0.UwOLwSXDp/WqGnKxn0rO", "phoneNo": "9436907689", "type": 1 },
+  //     { "id": 403, "name": "Kamran", "userName": "kamran90", "email": "kamran@gmail.com", "password": "$2a$10$aFicogZkh6lSDmAAabAeseDv1oeI9L/b3L6TMYDGQ8sAZzno90zE.", "phoneNo": "9436900089", "type": 1 },
+  //     { "id": 502, "name": "Naina", "userName": "Naina12_test", "email": "nain12@gmail.com", "password": "$2a$10$PixYmt.Q2U6WvN9idEFfUuGPD7h7CpEUX0c8SXruItDIZ02XF3z5i", "phoneNo": "8837061893", "type": 2 }
+  //   ]
+
+  //   // useEffect(()=>{
+  //   //   dat.map(row=>modal_data.fields.map(field=>row[field.label]))
+  //   // },)
 
     const csvReport={
       filename:'Report.csv',
       headers:modal_data.fields.map(field => field.label),
-      data:employee.map(row=>modal_data.fields.map(field=>row[field.label]))
+      data : data
       
     }
-
 
     const handleExport = () => {
       const csvData = new Blob([csvReport.data], { type: 'text/csv;charset=utf-8;' });
@@ -87,21 +106,7 @@ function Employees() {
     };
   
 
-  const getEmployees = async () => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/api/employees`;
-      const res = await fetch(url);
-      const resData = await res.json();
-      setData(resData);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    getEmployees();
-  }, [modal])
-
+  
   const handleDelete = async (id) => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/employees/${id}`;

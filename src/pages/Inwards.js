@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { toast } from 'react-hot-toast';
+import { CSVLink } from 'react-csv';
 
 function Inwards() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
 	const [modalData, setModalData] = useState(null);
   const columns_name = ["id", "product", "supplier", "quantity", "bill value", "supply date","checked by"];
@@ -13,58 +14,72 @@ function Inwards() {
 		name: "Inward",
 		fields: [
 			{
-				label: "item_name",
+				label: "id",
 				type: "text",
 				placeholder: "dell XPS",
 				req: true,
 			},
 			{
-				label: "supplier_name",
+				label: "product",
 				type: "text",
 				placeholder: "Anith",
 				req: true,
 			},
 			{
-				label: "date_of_supply",
+				label: "supplier",
 				type: "date",
 				req: true,
 			},
 			{
-				label: "invoice_no",
+				label: "quantity",
 				type: "text",
         placeholder: "0076",
 				req: true,
 			},
       {
-				label: "quantity",
+				label: "Bill Value",
 				type: "text",
         placeholder: "17",
 				req: true,
 			},
       {
-				label: "checked_by",
+				label: "Supply date",
 				type: "text",
         placeholder: "kamran",
 				req: true,
 			},
       {
-				label: "item_type",
+				label: "Checked by",
 				type: "text",
         placeholder: "please write 1",
 				req: true,
-			},
-      {
-				label: "bill_value",
-				type: "text",
-        placeholder: "4999",
-				req: true,
-			},
+			}
 		]
 	}
 
+
+
+  const inward =
+    [
+      { "id": 256, "product": "dell12", "supplier": "anith", "quantity": "8", "Bill Value": "1000", "Supply date": "2023-05-04T05:30:00.000+00:00", "Checked by": "kamran" },
+      { "id": 452, "product": "item10", "supplier": "naina", "quantity": "4", "Bill Value": "9999", "Supply date": "2023-05-05T05:30:00.000+00:00", "Checked by":"kamran" },
+      { "id": 502, "product": "item10", "supplier": "naina", "quantity": "10", "Bill Value": "9999", "Supply date": "2023-05-05T05:30:00.000+00:00", "Checked by": "kamran" },
+      { "id": 552, "product": "item10", "supplier": "naina", "quantity": "10", "Bill Value": "9999", "Supply date": "2023-05-05T05:30:00.000+00:00", "Checked by": "kamran" },
+     
+    ]
+
+    const csvReport={
+      filename:'Inwards.csv',
+      headers:modal_data.fields.map(field => field.label),
+      data:data
+      
+    }
+
+
+console.log("CSv",csvReport)
   const getInwards = async () => {
     try {
-      const url = `${process.env.REACT_APP_API_URL}/api/transactions/item-type/1`;
+      const url = `https://inventory-management-backend-tmvs.onrender.com/api/inwards`;
       const res = await fetch(url);
       const resData = await res.json();
       setData(resData);
@@ -79,7 +94,7 @@ function Inwards() {
 
   const handleDelete = async (id) => {
 		try {
-			const url = `${process.env.REACT_APP_API_URL}/api/transactions/${id}`;
+			const url = `https://inventory-management-backend-tmvs.onrender.com/api/transactions`;
 			const res = await fetch(url, {
 				method: 'DELETE'
 			})
@@ -128,9 +143,29 @@ function Inwards() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
                   </svg>
                   Add
+                  
                 </button>
+                <CSVLink {...csvReport}>Export Data</CSVLink>
               </div>
             </div>
+             {/* <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3"> */}
+              {/* <button onClick={handleExport} type="button" 
+              className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"> */}
+                {/* <button
+                  onClick={() => {
+                    return <CSVLink {...csvReport}>Export to csv</CSVLink>
+                  }}
+                  type="button"
+                  className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                > */}
+                  {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  */}
+                {/* </button> */}
+                      {/* <CSVLink {...csvReport}>Export Data</CSVLink> */}
+
+              {/* </div> */}
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
