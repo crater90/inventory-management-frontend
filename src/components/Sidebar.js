@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 import {
   faUsers,
@@ -17,19 +17,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const username = "User01";
-  const firstChar = username.charAt(0).toUpperCase();
-  const [showEmail, setShowEmail] = React.useState(false);
   const navigate = useNavigate();
-  const {setIsLoggedIn} = useContext(AuthContext);
+  const {setIsLoggedIn, setUserDetails, setRoles, userDetails} = useAuth();
 
-  const handleMouseEnter = () => {
-    setShowEmail(true);
+  
+  const firstTwoLetters = userDetails.email?.substring(0, 2).toUpperCase();
+  const username = userDetails.userName;
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("userLogged");
+    setIsLoggedIn(false);
+    setUserDetails(null);
+    setRoles([]);
+    navigate("/login")
   };
 
-  const handleMouseLeave = () => {
-    setShowEmail(false);
-  };
+  const formatCase = (str) => {
+    return str.split("_").join(" ");
+  }
 
   return (
     <>
@@ -40,12 +46,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       </header> */}
 
       <aside
-        id="default-sidebar"
         className={`absolute z-40 top-0 left-0 sm:static sm:left-auto sm:top-auto w-64 h-screen transition-transform border-r border-gray-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
           } bg-sky-950`}
         aria-label="Sidebar"
       >
-        <div className="h-full overflow-y-auto text-white">
+        <div className="h-[90%] overflow-y-auto text-white">
           {/* heading for sidebar */}
           <div className="flex items-center justify-between h-14 px-3">
             <a className="text-xl font-semibold no-underline text-white">
@@ -72,25 +77,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </button>
           </div>
           {/* sidebar navigations */}
-          <ul className="space-y-2 font-medium px-3 pt-2">
-            <li>
-              <Link
-                to="/godowns"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faIndustry} />
-                <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/employees"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUsers} />
-                <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
-              </Link>
-            </li>
+          <ul className="space-y-2 font-medium px-3">
+            <span className="p-2 uppercase text-xs text-gray-400">Transactions</span>
             <li>
               <Link
                 to="/inwards"
@@ -109,15 +97,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap">Outwards</span>
               </Link>
             </li>
-            {/* <li>
-              <Link
-                to="/employees"
-                class="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUserAlt} />
-                <span class="flex-1 ml-3 whitespace-nowrap">Admin</span>
-              </Link>
-            </li> */}
             <li>
               <Link
                 to="/returns"
@@ -127,6 +106,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>
             </li>
+            <hr/>
+            <span className="p-2 uppercase text-xs text-gray-400">Analytics</span>
             <li>
               <Link
                 to="/stocks"
@@ -145,23 +126,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap ">Report</span>
               </Link>
             </li>
+            <hr/>
+            <span className="p-2 uppercase text-xs text-gray-400">Admin controls</span>
+            <li>
+              <Link
+                to="/employees"
+                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faUsers} />
+                <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/godowns"
+                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faIndustry} />
+                <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
+              </Link>
+            </li>
+            
           </ul>
 
           {/* footer for sidebar */}
-          <div className="flex items-center justify-between px-3 mt-32">
+        </div>
+        {/* footer for sidebar */}
+        <div className="flex items-center justify-between text-white px-3">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full border border-slate-500 flex items-center justify-center">
-                <FontAwesomeIcon icon={faUser} />
+              <div className="w-10 h-10 rounded-full border border-slate-500 bg-gray-300 font-medium text-sky-950 flex items-center justify-center">
+                {firstTwoLetters}
               </div>
-              <h1 className="text-base mb-0 pl-2">User01</h1>
+              <h1 className="text-base mb-0 pl-2">{formatCase(username)}</h1>
             </div>
 
-            <button className="mr-0" onClick={() => {
-              localStorage.removeItem("userLogged");
-              setIsLoggedIn(false);
-              navigate("/login")
-
-            }}>
+            <button className="mr-0" onClick={handleLogout}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -178,7 +177,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </svg>
             </button>
           </div>
-        </div>
       </aside>
     </>
   );

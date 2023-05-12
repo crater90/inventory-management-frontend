@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../contexts/AuthContext'
 import { toast } from 'react-hot-toast'
+import useAuth from '../hooks/useAuth'
 
 function Login() {
   const [credentials, setCredentials] = useState({
@@ -13,7 +13,7 @@ function Login() {
   const [validationErrors, setValidationErrors] = useState(false);
 
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserDetails, setRoles, roles, userDetails } = useAuth();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -21,40 +21,52 @@ function Login() {
     setCredentials(prev => ({ ...prev, [name]: value }));
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if ((credentials.username === "") || (credentials.password === "")) {
       setValidationErrors(true);
       return;
     }
-    const notification = toast.loading('Logging in...')
-    console.log('credentials are', credentials);
-    setIsLoggedIn(true);
-    //fetch(`http://10.25.240.191:8085/api/employees/login?userName=${credentials.username}&password=${credentials.password}`, {
-    fetch('https://run.mocky.io/v3/cb2befd3-a545-45e2-930f-d32b742c2a56', {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.type === 2) {
-          toast.error('User not authorised');
-        } else {
-          localStorage.setItem("userLogged", true);
-          setIsLoggedIn(true);
-          toast.success('User logged in');
-          navigate('/');
-        }
+    const toastId = toast.loading('Logging in...');
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/employees/login?userName=${credentials.username}&password=${credentials.password}`, {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(credentials)
       })
-      .catch((err) => {
-        console.error(err);
-        toast.error('Unable to login')
+      const resData = await res.json();
+      console.log(resData);
+      if(resData.status === 500) {
+        toast.error('Invalid credentials', {
+          id: toastId
+        })
+        return
+      }
+      localStorage.setItem("userLogged", true);
+      setIsLoggedIn(true);
+      setUserDetails(resData);
+      if(resData.type === 0) {
+        setRoles(roles => [...roles, 0, 1, 2]);
+      } else if (resData.type === 1) {
+        setRoles(roles => [...roles, 1, 2]);
+      } else {
+        setRoles(roles => [...roles, 2]);
+      }
+      toast.success('User logged in', {
+        id: toastId
+      });
+      navigate('/');
+    }
+    catch (err) {
+      console.error(err);
+      toast.error('Unable to login, Incorrect credentials', {
+        id: toastId
       })
-      .finally(() => toast.dismiss(notification))
+    }
   }
+
 
   return (
     <section className="bg-slate-100 font-Inter">
@@ -71,7 +83,7 @@ function Login() {
               <div>
                 <label htmlFor="username" className="block mb-2 text-sm font-medium ">Username</label>
                 <input type="text" name="username" id="username" value={credentials.username} onChange={handleChange} className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="crater90" />
-                
+
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium ">Password</label>

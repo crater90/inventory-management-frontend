@@ -5,7 +5,6 @@ import useAuth from "../hooks/useAuth"
 export default function CheckAuth({allowedRoles}) {
 	let location = useLocation();
 	const {isLoggedIn, roles} = useAuth();
-	console.log(isLoggedIn);
 	
 	if (!isLoggedIn) {
 		// Redirect them to the /login page, but save the current location they were
