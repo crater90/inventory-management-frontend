@@ -37,6 +37,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     return str.split("_").join(" ");
   }
 
+  const formatUserType = (type) => {
+    if (type === 0) {
+      return 'Super admin';
+    } else if (type === 1) {
+      return 'Admin';
+    }
+    return 'Employee';
+  }
+
+  const tagColor = (type) => {
+    if (type === 0) {
+      return 'bg-red-100 text-red-600';
+    } else if (type === 1) {
+      return 'bg-yellow-100 text-yellow-600';
+    }
+    return 'bg-green-100 text-green-600';
+  }
+
   return (
     <>
       {/* <header className="fixed z-50 top-0 left-0 w-full h-14 backgroundColor:'transparent'">
@@ -126,26 +144,32 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap ">Report</span>
               </Link>
             </li>
-            <hr/>
-            <span className="p-2 uppercase text-xs text-gray-400">Admin controls</span>
-            <li>
-              <Link
-                to="/employees"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faUsers} />
-                <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/godowns"
-                className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-              >
-                <FontAwesomeIcon icon={faIndustry} />
-                <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
-              </Link>
-            </li>
+            
+            {(userDetails.type === 0 || userDetails.type === 1) && (
+              <>
+              <hr/>
+              <span className="p-2 uppercase text-xs text-gray-400">Admin controls</span>
+              <li>
+                <Link
+                  to="/employees"
+                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                >
+                  <FontAwesomeIcon icon={faUsers} />
+                  <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/godowns"
+                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                >
+                  <FontAwesomeIcon icon={faIndustry} />
+                  <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
+                </Link>
+              </li>
+              </>
+            )}
+            
             
           </ul>
 
@@ -157,7 +181,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <div className="w-10 h-10 rounded-full border border-slate-500 bg-gray-300 font-medium text-sky-950 flex items-center justify-center">
                 {firstTwoLetters}
               </div>
+              <div className="flex flex-col">
+                
               <h1 className="text-base mb-0 pl-2">{formatCase(username)}</h1>
+              <div>
+
+              <span className={` ${tagColor(userDetails.type)} ml-2 text-xs font-medium px-2 py-0.5 rounded-md whitespace-nowrap`}>{formatUserType(userDetails.type)}</span>
+              </div>
+              </div>
             </div>
 
             <button className="mr-0" onClick={handleLogout}>
