@@ -59,6 +59,8 @@ function Outwards() {
         type: "text",
         placeholder: "please write 2",
         req: true,
+        readOnly: true,
+        value: 2
       },
       {
         label: "billValue",

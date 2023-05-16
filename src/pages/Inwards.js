@@ -64,6 +64,8 @@ function Inwards() {
         type: "text",
         placeholder: "please write 1",
         req: true,
+        readOnly: true,
+        value: 1
       },
       {
         label: "billValue",

@@ -53,6 +53,8 @@ function Returns() {
         type: "text",
         placeholder: "please write 3",
         req: true,
+        readOnly: true,
+        value: 3
       },
       {
         label: "dateOfReturn",
