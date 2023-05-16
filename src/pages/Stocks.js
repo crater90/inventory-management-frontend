@@ -1,88 +1,156 @@
-import React, { useEffect, useState } from 'react'
-import Layout from '../components/Layout'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 function Stocks() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState(null);
+  const [lowStockItems, setLowStockItems] = useState([]);
 
   const getStocks = async () => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/stock`;
       const res = await fetch(url);
       const resData = await res.json();
-      setData(resData);
+      setData(resData.slice(1)); // Exclude first line of table
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getStocks();
-  })
+  }, []);
 
-  // const filteredData = data.filter((item) =>
-  //   // item.item_id.toString().includes(search) ||
-  //   item.itemName.toLowerCase().includes(search.toLowerCase())
-  //   // || item.quantity.toString().includes(search)
-  // );
+  const handleLowStockButtonClick = () => {
+    if (data === null) {
+      return;
+    }
+    const filteredData = data.filter((item) => item.quantity < 5);
+    setLowStockItems(filteredData);
+  };
 
-  return (
-    <Layout>
-      <main className="bg-gray-50 py-3 sm:py-5">
-        <div class="sm:mt-2 px-4 mx-auto max-w-screen-2xl font-Inter lg:px-12">
-        <div className="relative overflow-hidden bg-white border border-gray-200 shadow-sm sm:rounded-md min-h-[80vh]">
-            <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
-              <div class="flex items-center flex-1 space-x-4">
-                <h5 className="text-gray-500 font-bold mb-0">Stocks</h5>
-              </div>
-              <div class="w-full md:w-1/2">
-                <form class="flex items-center">
-                  <label for="simple-search" class="sr-only">Search</label>
-                  <div class="relative w-full">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                      </svg>
-                    </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2"
-                      placeholder="Search"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      required="" />
+  const PopUp = () => {
+    return (
+      <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          </div>
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="sm:flex sm:items-start">
+                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                    Low stock items:
+                  </h3>
+                  <div className="flex flex-col">
+                    {lowStockItems.map((item) => (
+                      <div key={item.itemId} className="flex items-center mb-2">
+                        <div className="flex-1">{item.itemName}</div>
+                        <div className="text-gray-500">{item.quantity}</div>
+                      </div>
+                    ))}
                   </div>
-                </form>
+                  {lowStockItems.length > 0 && (
+                    <div className="mt-4">
+                      <Link
+                        to="/invoice"
+                        className="inline-block bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 no-underline"
+                      >
+                        Generate Invoice
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="overflow-x-auto">
-              {/* <h2 className="text-xl font-bold bg-gray-100 p-3">Stocks</h2> */}
-              <table className="w-full text-sm text-left text-gray-500">
-                <thead className='text-xs text-gray-700 uppercase bg-gray-100'>
-                  <tr>
-                    <th scope="col" className="px-4 py-3 whitespace-nowrap">Item id</th>
-                    <th scope="col" className="px-4 py-3 whitespace-nowrap">Item name</th>
-                    <th scope="col" className="px-4 py-3 whitespace-nowrap">quantity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.map((stock) => {
-                    return (
-                      <tr key={stock.itemId} className='border-b hover:bg-gray-100'>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{stock.itemId}</td>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{stock.itemName}</td>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                          {stock.quantity}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <button
+                type="button"
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                onClick={() => setLowStockItems([])}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
-      </main>
-    </Layout>
-  )
-}
+      </div>
+    );
+  };
 
+  return (
+    <Layout>
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-bold leading-tight text-gray-900">
+            Stocks
+          </h2>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="px-4 py-2 mr-4 border border-gray-400 rounded-lg focus:outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              type="button"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg focus:outline-none hover:bg-blue-700"
+              onClick={handleLowStockButtonClick}
+            >
+              Low Stock
+            </button>
+          </div>
+        </div>
+        <div className="overflow-hidden bg-white shadow-md rounded-lg">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th scope="col" className="px-4 py-3 whitespace-nowrap">
+                  Item Id
+                </th>
+                <th scope="col" className="px-4 py-3 whitespace-nowrap">
+                  Item Name
+                </th>
+                <th scope="col" className="px-4 py-3 whitespace-nowrap">
+                  Quantity
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {data &&
+                data
+                  .filter((item) => item.itemName.includes(search))
+                  .map((item) => (
+                    <tr
+                      key={item.itemId}
+                      className="border-b hover:bg-gray-100"
+                    >
+                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                        {item.itemId}
+                      </td>
+                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                        {item.itemName}
+                      </td>
+                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                        {item.quantity}
+                      </td>
+                    </tr>
+                  ))}
+            </tbody>
+          </table>
+          {lowStockItems.length > 0 && <PopUp />}
+        </div>
+      </div>
+    </Layout>
+  );
+}
 export default Stocks;

@@ -4,16 +4,39 @@ import Layout from "../components/Layout";
 function Home() {
   return (
     <Layout>
-      <div className="font-Inter">
-        <div className="p-4">
-          <div className="p-4">
-            <div className="text-center mb-8">
-              <h1 className="text-5xl font-bold text-blue-950">
+      <div style={{ fontFamily: "Inter" }}>
+        <div style={{ padding: "1rem" }}>
+          <div style={{ padding: "1rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+              <h1
+                style={{
+                  fontSize: "2.5rem",
+                  fontWeight: "bold",
+                  color: "#0e3c87",
+                }}
+              >
                 Welcome to the SIMS
               </h1>
             </div>
-            <div className="flex items-center justify-center h-48 mb-8 rounded bg-gray-50">
-              <p className="text-2xl text-center text-bg-gray-800 font-normal">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "auto",
+                marginBottom: "1rem",
+                backgroundColor: "#f7fafc",
+                padding: "1rem",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "1.5rem",
+                  textAlign: "center",
+                  color: "#1a202c",
+                  fontWeight: "normal",
+                }}
+              >
                 Hello there! Welcome to our Smart Inventory Management system,
                 where you can easily manage your inventory, employees, inwards,
                 outwards, returns, and view reports. We are serving clients with
@@ -21,22 +44,82 @@ function Home() {
                 your inventory management process and save you time and money!
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4">
-                <p className="text-3xl font-bold mb-2">30+</p>
-                <p className="text-gray-600 dark:text-gray-400">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "1rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "0.5rem",
+                  backgroundColor: "#f7fafc",
+                  padding: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  30+
+                </p>
+                <p style={{ color: "#1a202c", fontWeight: "normal" }}>
                   Clients Served
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4">
-                <p className="text-3xl font-bold mb-2">500%</p>
-                <p className="text-gray-600 dark:text-gray-400">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "0.5rem",
+                  backgroundColor: "#f7fafc",
+                  padding: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  500%
+                </p>
+                <p style={{ color: "#1a202c", fontWeight: "normal" }}>
                   Increase in Godowns
                 </p>
               </div>
-              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4">
-                <p className="text-3xl font-bold mb-2">300%</p>
-                <p className="text-gray-600 dark:text-gray-400">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "0.5rem",
+                  backgroundColor: "#f7fafc",
+                  padding: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  300%
+                </p>
+                <p style={{ color: "#1a202c", fontWeight: "normal" }}>
                   Profit increase in Deliveries
                 </p>
               </div>
