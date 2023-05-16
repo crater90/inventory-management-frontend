@@ -18,42 +18,40 @@ import {
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
-  const {setIsLoggedIn, setUserDetails, setRoles, userDetails} = useAuth();
+  const { setIsLoggedIn, setUserDetails, setRoles, userDetails } = useAuth();
 
-  
   const firstTwoLetters = userDetails.email?.substring(0, 2).toUpperCase();
   const username = userDetails.userName;
-
 
   const handleLogout = () => {
     localStorage.removeItem("userLogged");
     setIsLoggedIn(false);
     setUserDetails(null);
     setRoles([]);
-    navigate("/login")
+    navigate("/login");
   };
 
   const formatCase = (str) => {
     return str.split("_").join(" ");
-  }
+  };
 
   const formatUserType = (type) => {
     if (type === 0) {
-      return 'Super admin';
+      return "Super admin";
     } else if (type === 1) {
-      return 'Admin';
+      return "Admin";
     }
-    return 'Employee';
-  }
+    return "Employee";
+  };
 
   const tagColor = (type) => {
     if (type === 0) {
-      return 'bg-red-100 text-red-600';
+      return "bg-red-100 text-red-600";
     } else if (type === 1) {
-      return 'bg-yellow-100 text-yellow-600';
+      return "bg-yellow-100 text-yellow-600";
     }
-    return 'bg-green-100 text-green-600';
-  }
+    return "bg-green-100 text-green-600";
+  };
 
   return (
     <>
@@ -64,8 +62,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       </header> */}
 
       <aside
-        className={`absolute z-40 top-0 left-0 sm:static sm:left-auto sm:top-auto w-64 h-screen transition-transform border-r border-gray-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
-          } bg-sky-950`}
+        className={`absolute z-40 top-0 left-0 sm:static sm:left-auto sm:top-auto w-64 h-screen transition-transform border-r border-gray-200 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
+        } bg-sky-950`}
         aria-label="Sidebar"
       >
         <div className="h-[90%] overflow-y-auto text-white">
@@ -96,7 +95,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
           {/* sidebar navigations */}
           <ul className="space-y-2 font-medium px-3">
-            <span className="p-2 uppercase text-xs text-gray-400">Transactions</span>
+            <span className="p-2 uppercase text-xs text-gray-400">
+              Transactions
+            </span>
             <li>
               <Link
                 to="/inwards"
@@ -124,8 +125,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap">Returns</span>
               </Link>
             </li>
-            <hr/>
-            <span className="p-2 uppercase text-xs text-gray-400">Analytics</span>
+            <hr />
+            <span className="p-2 uppercase text-xs text-gray-400">
+              Analytics
+            </span>
             <li>
               <Link
                 to="/stocks"
@@ -144,70 +147,78 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <span className="flex-1 ml-3 whitespace-nowrap ">Report</span>
               </Link>
             </li>
-            
+
             {(userDetails.type === 0 || userDetails.type === 1) && (
               <>
-              <hr/>
-              <span className="p-2 uppercase text-xs text-gray-400">Admin controls</span>
-              <li>
-                <Link
-                  to="/employees"
-                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-                >
-                  <FontAwesomeIcon icon={faUsers} />
-                  <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/godowns"
-                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
-                >
-                  <FontAwesomeIcon icon={faIndustry} />
-                  <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
-                </Link>
-              </li>
+                <hr />
+                <span className="p-2 uppercase text-xs text-gray-400">
+                  Admin controls
+                </span>
+                <li>
+                  <Link
+                    to="/employees"
+                    className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                  >
+                    <FontAwesomeIcon icon={faUsers} />
+                    <span className="flex-1 ml-3 whitespace-nowrap">
+                      Employees
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/godowns"
+                    className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                  >
+                    <FontAwesomeIcon icon={faIndustry} />
+                    <span className="flex-1 ml-3 whitespace-nowrap ">
+                      Godowns
+                    </span>
+                  </Link>
+                </li>
               </>
             )}
-            
-            
           </ul>
 
           {/* footer for sidebar */}
         </div>
         {/* footer for sidebar */}
         <div className="flex items-center justify-between text-white px-3">
-            <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full border border-slate-500 bg-gray-300 font-medium text-sky-950 flex items-center justify-center">
-                {firstTwoLetters}
-              </div>
-              <div className="flex flex-col">
-                
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full border border-slate-500 bg-gray-300 font-medium text-sky-950 flex items-center justify-center">
+              {firstTwoLetters}
+            </div>
+            <div className="flex flex-col">
               <h1 className="text-base mb-0 pl-2">{formatCase(username)}</h1>
               <div>
-
-              <span className={` ${tagColor(userDetails.type)} ml-2 text-xs font-medium px-2 py-0.5 rounded-md whitespace-nowrap`}>{formatUserType(userDetails.type)}</span>
-              </div>
+                <span
+                  className={` ${tagColor(
+                    userDetails.type
+                  )} ml-2 text-xs font-medium px-2 py-0.5 rounded-md whitespace-nowrap`}
+                >
+                  {formatUserType(userDetails.type)}
+                </span>
               </div>
             </div>
-
-            <button className="mr-0" onClick={handleLogout}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                />
-              </svg>
-            </button>
           </div>
+
+          <button className="mr-0" onClick={handleLogout}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+              />
+            </svg>
+          </button>
+        </div>
       </aside>
     </>
   );

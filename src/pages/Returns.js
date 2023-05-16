@@ -3,6 +3,9 @@ import Layout from "../components/Layout";
 import Modal from "../components/Modal";
 import { toast } from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Returns() {
   const columns_name = [
@@ -179,6 +182,15 @@ function Returns() {
                   </div>
                 </form>
               </div>
+              {/* <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                <Link
+                  to="/feedback"
+                  className="flex items-center p-2 rounded-lg no-underline bg-blue-600 text-white hover:bg-gray-400"
+                >
+                  <FontAwesomeIcon icon={faStar} />
+                  <span className="flex-1 ml-3 whitespace-nowrap">Inwards</span>
+                </Link>
+              </div> */}
               {(userDetails.type === 0 || userDetails.type === 1) && (
                 <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                   <button
@@ -315,6 +327,15 @@ function Returns() {
                   })}
                 </tbody>
               </table>
+            </div>
+            <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3 my-4 mx-4">
+              <Link
+                to="/feedback"
+                className="flex items-center p-2 rounded-lg no-underline bg-yellow-600 text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faStar} />
+                <span className="flex-1 ml-3 whitespace-nowrap">Feedback</span>
+              </Link>
             </div>
           </div>
         </div>

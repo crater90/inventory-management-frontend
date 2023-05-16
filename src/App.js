@@ -17,6 +17,7 @@ import Unauthorized from "./pages/Unauthorized";
 import Stocks from "./pages/Stocks";
 import NotFound from "./components/NotFound";
 import Invoice from "./pages/Invoice";
+import Feedback from "./pages/Feedback";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot" element={<Forgot />} />
+      <Route path="/feedback" element={<Feedback />} />
 
       {/* only super admins can see this */}
       <Route element={<CheckAuth allowedRoles={[0]} />}>
