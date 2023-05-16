@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
@@ -75,51 +75,56 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <ul className="space-y-2 font-medium px-3">
           <span className="p-2 uppercase text-xs text-gray-400">Transactions</span>
           <li>
-            <Link
+            <NavLink
               to="/inwards"
-              className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+              }
             >
               <FontAwesomeIcon icon={faBoxes} />
               <span className="flex-1 ml-3 whitespace-nowrap">Inwards</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/outwards"
-              className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+              className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+              }
             >
               <FontAwesomeIcon icon={faTruck} />
               <span className="flex-1 ml-3 whitespace-nowrap">Outwards</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/returns"
-              className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+              }
             >
               <FontAwesomeIcon icon={faExchangeAlt} />
               <span className="flex-1 ml-3 whitespace-nowrap">Returns</span>
-            </Link>
+            </NavLink>
           </li>
           <hr />
           <span className="p-2 uppercase text-xs text-gray-400">Analytics</span>
           <li>
-            <Link
+            <NavLink
               to="/stocks"
-              className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+              }
             >
               <FontAwesomeIcon icon={faMoneyBillTrendUp} />
               <span className="flex-1 ml-3 whitespace-nowrap ">Stocks</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to="/reports"
-              className="flex items-center p-2 rounded-lg no-underline  text-white hover:bg-gray-400"
+              className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+              }
             >
               <FontAwesomeIcon icon={faChartBar} />
               <span className="flex-1 ml-3 whitespace-nowrap ">Report</span>
-            </Link>
+            </NavLink>
           </li>
 
           {(userDetails.type === 0 || userDetails.type === 1) && (
@@ -127,30 +132,28 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <hr />
               <span className="p-2 uppercase text-xs text-gray-400">Admin controls</span>
               <li>
-                <Link
+                <NavLink
                   to="/employees"
-                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                  className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+                  }
                 >
                   <FontAwesomeIcon icon={faUsers} />
                   <span className="flex-1 ml-3 whitespace-nowrap">Employees</span>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/godowns"
-                  className="flex items-center p-2 rounded-lg no-underline text-white hover:bg-gray-400"
+                  className={({ isActive }) => `flex items-center p-2 rounded-lg no-underline ${isActive ? 'bg-gray-300 text-gray-700 font-bold hover:text-gray-700' : 'text-white hover:bg-gray-400 hover:text-gray-700'}`
+                  }
                 >
                   <FontAwesomeIcon icon={faIndustry} />
                   <span className="flex-1 ml-3 whitespace-nowrap ">Godowns</span>
-                </Link>
+                </NavLink>
               </li>
             </>
           )}
-
-
         </ul>
-
-        {/* footer for sidebar */}
       </div>
       {/* footer for sidebar */}
       <div className="flex items-center justify-between text-white px-3">
