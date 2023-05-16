@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 
 function Features() {
+
   return (
     <Layout>
       <div className="font-Inter">
@@ -13,8 +14,8 @@ function Features() {
             <div className="flex items-center justify-center mb-8">
               <ul className="list-disc text-lg text-gray-800 font-normal">
                 <li>
-                  Easy CRUD operations for managing godowns, employees, inwards,
-                  outwards, and returns
+                  Easy Create, Read, Update, Delete operations for managing
+                  godowns, employees, inwards, outwards, and returns
                 </li>
                 <li>
                   Showcase of different reports for better decision-making

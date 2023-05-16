@@ -1,42 +1,28 @@
 import React from 'react';
 import ChatBot from 'react-simple-chatbot';
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/outline';
 
 const Assistant = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
-
     setIsOpen(true);
-
   };
-
-
 
   const handleClose = () => {
-
     setIsOpen(false);
-
   };
 
-
-
   const ChatHeader = () => (
-
     <div className="flex items-center justify-between bg-gray-700 text-white px-4 py-2">
-
       <div className="font-bold">SIMS Chatbot</div>
-
       <button className="text-white hover:text-gray-200" onClick={handleClose}>
-
-        <XIcon className="h-5 w-5" />
-
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
-
     </div>
-
   );
 
 
@@ -340,89 +326,25 @@ const Assistant = () => {
 
   ];
 
-
-
-
-
-
-
-
-
-  // return (
-
-  // <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
-
-  //       {/* <ChatBot steps={steps}/> */}
-
-  //       {/* <button onClick={toggleChatBot}>Click to chat</button>
-
-  // {showChatBot && <ChatBot steps={steps} />} */}
-
-  // <button onClick={toggleChatBot} style={{ background: '#1b73da', color: '#fff', padding: '10px', borderRadius: '50%', border: 'none', outline: 'none', cursor: 'pointer', boxShadow: '0px 3px 5px rgba(0,0,0,0.1)' }}>Chat</button>
-
-  // {showChatBot && <ChatBot steps={steps} style={{ backgroundColor: '#f5f5f5', boxShadow: '0px 3px 5px rgba(0,0,0,0.1)' }} />}
-
-
-
-  //   </div>
-
-  //       <div className="fixed bottom-8 right-8">
-
-  //       <button onClick={toggleChatBot} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none shadow-md">Chat</button>
-
-  //       {showChatBot && <ChatBot steps={steps} style={{ backgroundColor: '#f5f5f5', boxShadow: '0px 3px 5px rgba(0,0,0,0.1)' }} />}
-
-  //     </div>
-
-
-
-  //     );
-
-  // }
-
-
-
-
-
-
   return (
-
     <div className="fixed right-0 bottom-0 mr-6 mb-6">
-
       {isOpen ? (
-
         <div className="rounded-lg shadow-lg bg-white w-80">
-
           <ChatBot
-
             headerComponent={<ChatHeader />}
-
             steps={steps}
-
           />
-
         </div>
-
       ) : (
-
         <button
-
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg"
-
           onClick={handleOpen}
-
         >
-
           Open Chat
-
         </button>
-
       )}
-
     </div>
-
   );
-
 };
 
 

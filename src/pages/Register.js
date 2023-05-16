@@ -133,9 +133,9 @@ function Register() {
                 <label htmlFor="type" className="block mb-2 text-sm font-medium text-gray-900 ">User type</label>
                 <select id="type" {...register("type", { required: "type is required.." })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                   <option value="">Select category</option>
-                  <option value={0}>Employee</option>
+                  <option value={0}>Super Admin</option>
                   <option value={1}>Admin</option>
-                  <option value={2}>Super Admin</option>
+                  <option value={2}>Employee</option>
                 </select>
                 {errors.type && <span className="text-red-500 text-sm mt-1">{errors.type.message}</span>}
               </div>

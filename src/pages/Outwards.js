@@ -3,11 +3,14 @@ import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { toast } from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
+import { formatDate } from '../lib/utils';
+import { CSVLink } from "react-csv";
 
 function Outwards() {
-
+  
   const columns_name = ["id", "godown name", "product", "quantity", "bill value", "delivered to", "delivery date"];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const { userDetails } = useAuth();
@@ -77,6 +80,13 @@ function Outwards() {
     ]
   }
 
+  const csvReport = {
+    filename: "Outwards.csv",
+    headers: modal_data.fields.map((field) => field.label),
+    data: data,
+
+  };
+
   const getOutwards = async () => {
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/transactions/item-type/2`;
@@ -114,12 +124,21 @@ function Outwards() {
     setModal(!modal);
   }
 
-  const formatDate = (oldDate) => {
-    const date = new Date(oldDate);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear().toString();
-    return `${day}-${month}-${year}`;
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    console.log(searchInput);
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/api/transactions/search?itemType=2&itemName=${searchInput}`;
+      console.log(url);
+      const res = await fetch(url, {
+        method: 'GET'
+      })
+      const resData = await res.json();
+      console.log(resData);
+      setData(resData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -133,7 +152,7 @@ function Outwards() {
                 <h5 className="text-gray-500 font-bold mb-0">Outwards</h5>
               </div>
               <div className="w-full md:w-1/2">
-                <form className="flex items-center">
+                <form onSubmit={handleSearch} className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">Search</label>
                   <div className="relative w-full">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -141,7 +160,7 @@ function Outwards() {
                         <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2" placeholder="Search" required="" />
+                    <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2" placeholder="Search" required="" />
                   </div>
                 </form>
               </div>
@@ -153,6 +172,7 @@ function Outwards() {
                     </svg>
                     Add
                   </button>
+                  <CSVLink className='flex items-center no-underline justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700' {...csvReport}>Export Data</CSVLink>
                 </div>
               )}
             </div>
@@ -160,12 +180,6 @@ function Outwards() {
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                   <tr>
-                    {/* <th scope="col" className="py-2 px-4">
-                      <div className="flex items-center">
-                        <input id="checkbox-all" type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label for="checkbox-all" className="sr-only">checkbox</label>
-                      </div>
-                    </th> */}
                     {columns_name.map(column => {
                       return (
                         <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
@@ -177,27 +191,17 @@ function Outwards() {
                         <th scope="col" className="px-2 py-3"></th>
                       </>
                     )}
-
                   </tr>
                 </thead>
                 <tbody>
                   {data?.map(row => {
                     return (
                       <tr key={row.transactionId} className="border-b hover:bg-gray-100">
-                        {/* <td className="w-4 px-4 py-3">
-                          <div className="flex items-center">
-                            <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 focus:ring-2" />
-                            <label for="checkbox-table-search-1" className="sr-only">checkbox</label>
-                          </div>
-                        </td> */}
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.transactionId}
                         </th>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.godownName}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.itemName}</td>
-                        {/* <td className="px-4 py-2">
-                          <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">{row.type === 1 ? 'admin' : 'employee'}</span>
-                        </td> */}
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.quantity}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.billValue}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.deliveredTo}</td>
@@ -222,47 +226,6 @@ function Outwards() {
                 </tbody>
               </table>
             </div>
-            {/* <nav className="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0" aria-label="Table navigation">
-              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                Showing
-                <span className="font-semibold text-gray-900 dark:text-white">1-10</span>
-                of
-                <span className="font-semibold text-gray-900 dark:text-white">1000</span>
-              </span>
-              <ul className="inline-flex items-stretch -space-x-px">
-                <li>
-                  <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span className="sr-only">Previous</span>
-                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                </li>
-                <li>
-                  <a href="#" className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                  <a href="#" aria-current="page" className="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                  <a href="#" className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                </li>
-                <li>
-                  <a href="#" className="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                </li>
-                <li>
-                  <a href="#" className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span className="sr-only">Next</span>
-                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
           </div>
         </div>
       </main>

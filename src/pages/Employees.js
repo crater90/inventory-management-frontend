@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import { toast } from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
 import { CSVLink } from "react-csv";
+import { formatUserType, tagColor } from '../lib/utils';
 
 function Employees() {
   const columns_name = ["id", "username", "type", "email", "phone"];
@@ -57,7 +58,7 @@ function Employees() {
   }
 
   const csvReport = {
-    filename: "Report.csv",
+    filename: "Employees.csv",
     headers: modal_data.fields.map((field) => field.label),
     data: data,
 
@@ -116,24 +117,6 @@ function Employees() {
     }
   }
 
-  const formatUserType = (type) => {
-    if (type === 0) {
-      return 'Super admin';
-    } else if (type === 1) {
-      return 'Admin';
-    }
-    return 'Employee';
-  }
-
-  const tagColor = (type) => {
-    if (type === 0) {
-      return 'bg-red-100 text-red-600';
-    } else if (type === 1) {
-      return 'bg-yellow-100 text-yellow-600';
-    }
-    return 'bg-green-100 text-green-600';
-  }
-
   return (
     <Layout>
       <main className="bg-gray-50 py-3 sm:py-5">
@@ -157,7 +140,7 @@ function Employees() {
                   </div>
                 </form>
               </div>
-              {(userDetails.type === 0 || userDetails.type === 1) && (
+              {(userDetails?.type === 0) && (
                 <div className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
                   <button onClick={() => setModal(true)} type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
@@ -168,42 +151,28 @@ function Employees() {
                   <CSVLink className='flex items-center no-underline justify-center px-4 py-2 text-sm font-medium text-white rounded-md bg-blue-600 hover:bg-blue-700' {...csvReport}>Export Data</CSVLink>
                 </div>
               )}
-
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                   <tr>
-                    {/* <th scope="col" class="py-2 px-4">
-                      <div class="flex items-center">
-                        <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label for="checkbox-all" class="sr-only">checkbox</label>
-                      </div>
-                    </th> */}
                     {columns_name.map(column => {
                       return (
                         <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
                       )
                     })}
-                    {userDetails.type === 0 && (
+                    {userDetails?.type === 0 && (
                       <>
                         <th scope="col" className="px-2 py-3"></th>
                         <th scope="col" className="px-2 py-3"></th>
                       </>
                     )}
-
                   </tr>
                 </thead>
                 <tbody>
                   {data?.map(row => {
                     return (
                       <tr key={row.id} className="border-b hover:bg-gray-100">
-                        {/* <td class="w-4 px-4 py-3">
-                          <div class="flex items-center">
-                            <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 focus:ring-2" />
-                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                          </div>
-                        </td> */}
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.id}
                         </th>
@@ -213,7 +182,7 @@ function Employees() {
                         </td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.email}</td>
                         <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">{row.phoneNo}</td>
-                        {userDetails.type === 0 && (
+                        {userDetails?.type === 0 && (
                           <>
                             <td onClick={() => openEditModal(row.id)} className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-700">
@@ -227,54 +196,12 @@ function Employees() {
                             </td>
                           </>
                         )}
-
                       </tr>
                     )
                   })}
                 </tbody>
               </table>
             </div>
-            {/* <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0" aria-label="Table navigation">
-              <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                Showing
-                <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                of
-                <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-              </span>
-              <ul class="inline-flex items-stretch -space-x-px">
-                <li>
-                  <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Previous</span>
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                  <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                </li>
-                <li>
-                  <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Next</span>
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
           </div>
         </div>
       </main>
