@@ -176,7 +176,7 @@ function Employees() {
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.id}
                         </th>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.userName}</td>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.name}</td>
                         <td className="px-4 py-2">
                           <span className={` ${tagColor(row.type)} text-xs font-medium px-2 py-0.5 rounded-md whitespace-nowrap`}>{formatUserType(row.type)}</span>
                         </td>

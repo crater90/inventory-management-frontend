@@ -114,6 +114,7 @@ function Inwards() {
   }
 
   const openEditModal = (id) => {
+    console.log(id);
     const edit_obj = data.filter(item => item.transactionId === id);
     setModalData(edit_obj[0]);
     console.log(modalData);
@@ -136,7 +137,7 @@ function Inwards() {
       console.log(error);
     }
   }
-  
+
   return (
     <Layout>
       <main className="bg-gray-50 py-3 sm:py-5">

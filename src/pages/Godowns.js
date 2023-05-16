@@ -96,7 +96,6 @@ function Godowns() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(searchInput);
     try {
       const url = `${process.env.REACT_APP_API_URL}/api/godowns/search?godownName=${searchInput}`;
       console.log(url);

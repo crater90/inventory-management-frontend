@@ -63,13 +63,13 @@ function Modal({ modal, setModal, modal_data, modalData, setModalData }) {
           url = `${process.env.REACT_APP_API_URL}/api/godowns/${modalData?.godown_Id}`
           break;
         case "Inward":
-          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transaction_Id}`
+          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transactionId}`
           break;
         case "Outward":
-          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transaction_Id}`
+          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transactionId}`
           break;
         case "Return":
-          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transaction_Id}`
+          url = `${process.env.REACT_APP_API_URL}/api/transactions/${modalData?.transactionId}`
           break;
 
         default:
