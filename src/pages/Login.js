@@ -37,7 +37,7 @@ function Login() {
         body: JSON.stringify(credentials)
       })
       const resData = await res.json();
-      if(resData.status === 500) {
+      if (resData.status === 500) {
         toast.error('Invalid credentials', {
           id: toastId
         })
@@ -46,7 +46,7 @@ function Login() {
       localStorage.setItem("userLogged", true);
       setIsLoggedIn(true);
       setUserDetails(resData);
-      if(resData.type === 0) {
+      if (resData.type === 0) {
         setRoles(roles => [...roles, 0, 1, 2]);
       } else if (resData.type === 1) {
         setRoles(roles => [...roles, 1, 2]);
@@ -98,7 +98,7 @@ function Login() {
                     <label htmlFor="remember" className="text-gray-500">Remember me</label>
                   </div>
                 </div>
-                <a href="#" className="text-sm font-medium text-primary-600 hover:underline">Forgot password?</a>
+                <Link to="/forgot" className="text-sm font-medium text-primary-600 hover:underline">Forgot password?</Link>
               </div>
               <button type="submit" className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-md text-sm px-5 py-2.5 text-center">Sign in</button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">

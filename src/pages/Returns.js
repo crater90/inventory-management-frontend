@@ -5,6 +5,9 @@ import { toast } from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
 import { formatDate } from '../lib/utils';
 import { CSVLink } from "react-csv";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router-dom';
 
 function Returns() {
 
@@ -227,6 +230,15 @@ function Returns() {
                   })}
                 </tbody>
               </table>
+            </div>
+            <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3 my-4 mx-4">
+              <Link
+                to="/feedback"
+                className="flex items-center px-4 py-2 rounded-lg no-underline bg-yellow-600 text-white hover:bg-gray-400"
+              >
+                <FontAwesomeIcon icon={faStar} />
+                <span className="flex-1 ml-3 whitespace-nowrap">Feedback</span>
+              </Link>
             </div>
           </div>
         </div>

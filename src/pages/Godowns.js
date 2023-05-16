@@ -12,6 +12,7 @@ function Godowns() {
   const [modalData, setModalData] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const { userDetails } = useAuth();
+  const [sortOrder, setSortOrder] = useState("asc");
   const columns = ["name", "location", "storage left", "manager", "start date"]
 
   const modal_data = {
@@ -114,6 +115,18 @@ function Godowns() {
     return `${result.toFixed(2)} %`;
   }
 
+  const handleSort = () => {
+    const sortedData = [...data].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.godownName.localeCompare(b.godownName);
+      } else {
+        return b.godownName.localeCompare(a.godownName);
+      }
+    });
+    setData(sortedData);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
   return (
     <Layout>
       <section className="py-3 sm:py-5">
@@ -153,6 +166,12 @@ function Godowns() {
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                   <tr>
+                    <th className='px-1 py-3 flex items-center justify-center'>
+                      <button onClick={handleSort}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                      </svg>
+                      </button>
+                    </th>
                     {columns.map(column => {
                       return (
                         <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
@@ -170,6 +189,8 @@ function Godowns() {
                   {data?.map(row => {
                     return (
                       <tr key={row.godown_Id} className="border-b hover:bg-gray-100">
+                        <td className="px-1 py-2">
+                        </td>
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.godownName}
                         </th>

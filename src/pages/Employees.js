@@ -13,6 +13,7 @@ function Employees() {
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const { userDetails } = useAuth();
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const modal_data = {
     name: "Employee",
@@ -117,6 +118,18 @@ function Employees() {
     }
   }
 
+  const handleSort = () => {
+    const sortedData = [...data].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.userName.localeCompare(b.userName);
+      } else {
+        return b.userName.localeCompare(a.userName);
+      }
+    });
+    setData(sortedData);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
   return (
     <Layout>
       <main className="bg-gray-50 py-3 sm:py-5">
@@ -156,6 +169,12 @@ function Employees() {
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                   <tr>
+                    <th className='px-1 py-3 flex items-center justify-center'>
+                      <button onClick={handleSort}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                      </svg>
+                      </button>
+                    </th>
                     {columns_name.map(column => {
                       return (
                         <th key={column} scope="col" className="px-4 py-3 whitespace-nowrap">{column}</th>
@@ -173,10 +192,14 @@ function Employees() {
                   {data?.map(row => {
                     return (
                       <tr key={row.id} className="border-b hover:bg-gray-100">
+                        <td className="px-1 py-2">
+                        </td>
                         <th scope='row' className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
                           {row.id}
                         </th>
-                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">{row.name}</td>
+                        <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                          {row.name}
+                        </td>
                         <td className="px-4 py-2">
                           <span className={` ${tagColor(row.type)} text-xs font-medium px-2 py-0.5 rounded-md whitespace-nowrap`}>{formatUserType(row.type)}</span>
                         </td>
